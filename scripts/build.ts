@@ -14,9 +14,12 @@ const DIST = join(ROOT, 'dist');
 mkdirSync(DIST, { recursive: true });
 mkdirSync(join(DIST, 'themes'), { recursive: true });
 
-// 1. Build main CSS (concatenate and minify)
+// 1. Build main CSS (concatenate all source files and minify)
 console.log('[build] Compiling CSS...');
-const mainCSS = readFileSync(join(SRC, 'css', 'cbrowser-ui.css'), 'utf-8');
+const cssFiles = ['cbrowser-ui.css', 'components.css', 'beauty.css'];
+const mainCSS = cssFiles
+  .map(f => readFileSync(join(SRC, 'css', f), 'utf-8'))
+  .join('\n\n');
 writeFileSync(join(DIST, 'cbrowser-ui.css'), mainCSS);
 
 // Minified version
