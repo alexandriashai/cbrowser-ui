@@ -3,243 +3,491 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>cbrowser-ui — One CSS file. Your framework. Now accessible.</title>
-  <meta name="description" content="Drop-in accessibility layer for Bootstrap, Tailwind, shadcn, Material — or use as a standalone framework. Scores 100 on CIF.">
+  <title>cbrowser-ui — The accessible CSS framework</title>
+  <meta name="description" content="One CSS file makes any site accessible and beautiful. Patches for Bootstrap, Tailwind, shadcn — or use standalone. 21kb, zero dependencies.">
   <link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css">
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Playground-specific */
-    .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; }
-    .score-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1rem; border-radius: 100px; font-weight: 600; font-size: 0.875rem; }
-    .score-badge.good { background: #dcfce7; color: #166534; }
-    .score-badge.bad { background: #fee2e2; color: #991b1b; }
-    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 640px) { .before-after { grid-template-columns: 1fr; } }
-    .feature-icon { width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: var(--cui-radius); background: color-mix(in oklch, var(--cui-primary) 10%, var(--cui-bg)); color: var(--cui-primary); font-size: 1.25rem; flex-shrink: 0; }
+    :root {
+      --cui-font: 'Inter', system-ui, sans-serif;
+      --cui-primary: #4f46e5;
+      --cui-primary-fg: #ffffff;
+      --cui-primary-hover: #4338ca;
+      --cui-gradient-start: #4f46e5;
+      --cui-gradient-end: #7c3aed;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --cui-primary: #818cf8;
+        --cui-primary-fg: #0f172a;
+        --cui-primary-hover: #a5b4fc;
+        --cui-gradient-start: #818cf8;
+        --cui-gradient-end: #a78bfa;
+      }
+    }
+
+    /* Hero section */
+    .hero {
+      padding: clamp(4rem, 10vw, 7rem) 0 clamp(3rem, 8vw, 5rem);
+      text-align: center;
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in oklch, var(--cui-primary) 12%, var(--cui-bg)), var(--cui-bg));
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 140%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 80%, color-mix(in oklch, var(--cui-gradient-end) 6%, transparent) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 20%, color-mix(in oklch, var(--cui-gradient-start) 8%, transparent) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Feature cards with colored left border */
+    .feature-card {
+      border-left: 4px solid var(--cui-primary);
+      padding-left: 1.5rem;
+    }
+    .feature-card.green { border-left-color: var(--cui-green); }
+    .feature-card.purple { border-left-color: var(--cui-purple); }
+    .feature-card.orange { border-left-color: var(--cui-orange); }
+    .feature-card.teal { border-left-color: var(--cui-teal); }
+    .feature-card.pink { border-left-color: var(--cui-pink); }
+
+    /* Code blocks */
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--cui-radius);
+      font-family: var(--cui-font-mono);
+      font-size: 0.875rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      border: 1px solid #1e293b;
+    }
+    .code-block .comment { color: #64748b; }
+    .code-block .tag { color: #f472b6; }
+    .code-block .attr { color: #60a5fa; }
+    .code-block .string { color: #4ade80; }
+
+    /* Stats row */
+    .stats { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 2rem; font-weight: 800; }
+    .stat-label { font-size: 0.875rem; color: var(--cui-muted); }
+
+    /* Before/After comparison */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+    .compare-bad { border: 2px solid var(--cui-destructive); }
+    .compare-good { border: 2px solid var(--cui-success); }
+    .compare-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.375rem 0.75rem; border-radius: 100px; display: inline-block; margin-bottom: 1rem; }
+    .compare-label.bad { background: color-mix(in oklch, var(--cui-destructive) 12%, var(--cui-bg)); color: var(--cui-destructive); }
+    .compare-label.good { background: color-mix(in oklch, var(--cui-success) 12%, var(--cui-bg)); color: var(--cui-success); }
+
+    /* Component showcase grid */
+    .showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+
+    /* Gradient section divider */
+    .gradient-divider {
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--cui-primary), var(--cui-gradient-end), transparent);
+      border: none;
+      margin: 0;
+      opacity: 0.3;
+    }
   </style>
 </head>
 <body>
-  <!-- Skip link -->
   <a href="#main" class="cui-skip-link">Skip to main content</a>
 
-  <!-- Header with responsive nav -->
-  <header class="cui-header cui-container-lg" style="margin: 0 auto;">
-    <a href="/" class="cui-header-logo" aria-current="page">cbrowser-ui</a>
-    <nav class="cui-header-nav" id="main-nav" aria-label="Main navigation">
-      <a href="#get-started">Get Started</a>
-      <a href="#patches">Patches</a>
-      <a href="#components">Components</a>
-      <a href="#themes">Themes</a>
-      <a href="https://github.com/alexandriashai/cbrowser-ui" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://cbrowser.ai" target="_blank" rel="noopener">CBrowser</a>
-    </nav>
-    <button class="cui-header-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
+  <!-- Header -->
+  <header class="cui-header">
+    <div class="cui-container-lg cui-row" style="margin: 0 auto; width: 100%;">
+      <a href="/" class="cui-header-logo" style="margin-right: auto;" aria-current="page">
+        <span class="cui-gradient-text" style="font-size: 1.25rem;">cbrowser-ui</span>
+      </a>
+      <nav class="cui-header-nav" id="main-nav" aria-label="Main navigation">
+        <a href="#get-started">Get Started</a>
+        <a href="#why">Why</a>
+        <a href="#components">Components</a>
+        <a href="#patches">Patches</a>
+        <a href="#themes">Themes</a>
+        <a href="https://github.com/alexandriashai/cbrowser-ui" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://cbrowser.ai" class="cui-btn" style="padding: 0.5rem 1rem; min-height: 40px; font-size: 0.875rem;" target="_blank" rel="noopener">CBrowser →</a>
+      </nav>
+      <button class="cui-header-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
   </header>
 
   <!-- Hero -->
-  <section class="cui-section cui-hero-gradient" style="padding-top: 5rem; padding-bottom: 5rem;">
-    <div class="cui-container" style="text-align: center;">
-      <p class="cui-badge cui-badge-primary" style="margin: 0 auto 1.5rem;">19.7kb · Zero dependencies · WCAG AAA</p>
-      <h1 class="cui-display">One CSS file.<br><span class="cui-gradient-text">Now accessible.</span></h1>
-      <p class="cui-lead" style="margin: 1.5rem auto 2.5rem; text-align: center;">
-        Drop-in accessibility patches for Bootstrap, Tailwind, shadcn, and Material.
-        Or use standalone as the CSS framework that was born accessible and beautiful.
+  <section class="hero">
+    <div class="cui-container" style="position: relative; z-index: 1;">
+      <span class="cui-badge cui-badge-primary" style="margin-bottom: 1.5rem;">21kb · Zero deps · WCAG AAA · Open Source</span>
+      <h1 class="cui-display" style="margin-bottom: 1rem;">
+        One CSS file.<br>
+        <span class="cui-gradient-text">Beautiful. Accessible.</span>
+      </h1>
+      <p class="cui-lead" style="margin: 0 auto 2.5rem; text-align: center; max-width: 42ch;">
+        Drop it on top of Bootstrap, Tailwind, or shadcn to fix accessibility.
+        Or use it as your entire design system.
       </p>
-      <div class="cui-row" style="justify-content: center; gap: 1rem;">
-        <a href="#get-started" class="cui-btn cui-glow">Get Started</a>
-        <a href="#patches" class="cui-btn cui-btn-secondary">See Framework Patches</a>
+      <div class="cui-row" style="justify-content: center; gap: 1rem; margin-bottom: 3rem;">
+        <a href="#get-started" class="cui-btn cui-glow" style="padding: 0.875rem 2rem; font-size: 1.0625rem;">Get Started</a>
+        <a href="#components" class="cui-btn cui-btn-secondary" style="padding: 0.875rem 2rem; font-size: 1.0625rem;">See Components</a>
       </div>
-      <p style="margin-top: 2.5rem;">
-        <span class="score-badge good">✓ CIF Score: 100</span>
-        <span class="cui-text-muted cui-text-sm" style="margin-left: 0.75rem;">This entire page scores perfect accessibility.</span>
-      </p>
+
+      <!-- Stats -->
+      <div class="stats" style="margin-top: 1rem;">
+        <div class="stat">
+          <div class="stat-value cui-gradient-text">21kb</div>
+          <div class="stat-label">Minified CSS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value cui-gradient-text">0</div>
+          <div class="stat-label">Dependencies</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value cui-gradient-text">AAA</div>
+          <div class="stat-label">WCAG Contrast</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value cui-gradient-text">44px</div>
+          <div class="stat-label">Min Touch Target</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Main content -->
-  <main id="main" class="cui-container" style="padding-block: 3rem;">
+  <hr class="gradient-divider">
+
+  <main id="main">
+
+    <!-- Why Section -->
+    <section id="why" class="cui-section">
+      <div class="cui-container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <span class="cui-badge" style="margin-bottom: 1rem;">The Problem</span>
+          <h2 class="cui-display-sm">Every framework fails accessibility</h2>
+          <p class="cui-lead" style="margin: 1rem auto 0;">Bootstrap buttons are 32px. Tailwind counts transitions as animations. shadcn dialogs don't trap focus. We fix all of it.</p>
+        </div>
+
+        <div class="showcase">
+          <div class="cui-card cui-card-elevated feature-card">
+            <h3 style="margin-top: 0;">Touch targets too small</h3>
+            <p>Bootstrap's <code>.btn-sm</code> is 32px. WCAG requires 44px minimum. One in five users can't reliably tap your buttons.</p>
+            <p class="cui-text-sm" style="color: var(--cui-success); font-weight: 600;">✓ cbrowser-ui enforces 44px on everything interactive</p>
+          </div>
+          <div class="cui-card cui-card-elevated feature-card purple">
+            <h3 style="margin-top: 0;">Animations ignore preferences</h3>
+            <p>Tailwind's <code>animate-*</code> classes run regardless of <code>prefers-reduced-motion</code>. Some users get nauseous.</p>
+            <p class="cui-text-sm" style="color: var(--cui-success); font-weight: 600;">✓ cbrowser-ui pauses all motion by default</p>
+          </div>
+          <div class="cui-card cui-card-elevated feature-card orange">
+            <h3 style="margin-top: 0;">Contrast that fails AAA</h3>
+            <p>Bootstrap's <code>.text-muted</code> is 4.6:1 — fails WCAG AAA. Tailwind's gray-400 on white? 3.0:1 — fails even AA.</p>
+            <p class="cui-text-sm" style="color: var(--cui-success); font-weight: 600;">✓ cbrowser-ui guarantees 7:1 on all text</p>
+          </div>
+          <div class="cui-card cui-card-elevated feature-card teal">
+            <h3 style="margin-top: 0;">Focus rings get hidden</h3>
+            <p>Tailwind's <code>focus:outline-none</code> is used on 90% of components. Keyboard users can't see where they are.</p>
+            <p class="cui-text-sm" style="color: var(--cui-success); font-weight: 600;">✓ cbrowser-ui makes focus always visible</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="gradient-divider">
 
     <!-- Get Started -->
-    <section id="get-started">
-      <h2>Get Started in 30 Seconds</h2>
-      <p>Choose your mode. Each one is a single file.</p>
-
-      <div class="demo-grid">
-        <div class="cui-card">
-          <h3 class="cui-mt-0">Mode 1: Patch Your Framework</h3>
-          <p>Already using Bootstrap? Add one line. Nothing else changes.</p>
-          <pre><code>&lt;!-- After bootstrap.min.css --&gt;
-&lt;link rel="stylesheet"
-  href="https://cdn.cbrowser.ai/fix-bootstrap.css"&gt;</code></pre>
-          <p class="cui-text-sm cui-text-muted">Also available: fix-tailwind.css, fix-shadcn.css, fix-material.css</p>
+    <section id="get-started" class="cui-section cui-section-alt">
+      <div class="cui-container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <span class="cui-badge cui-badge-primary" style="margin-bottom: 1rem;">Get Started</span>
+          <h2 class="cui-display-sm">Three ways to use it</h2>
+          <p class="cui-lead" style="margin: 1rem auto 0;">Patch your framework, replace it, or install from npm.</p>
         </div>
 
-        <div class="cui-card">
-          <h3 class="cui-mt-0">Mode 2: Use as Your Framework</h3>
-          <p>Replace Bootstrap/Tailwind entirely. Beautiful + accessible by default.</p>
-          <pre><code>&lt;link rel="stylesheet"
-  href="https://playground.cbrowser.aihttps://cdn.cbrowser.ai/ui.css"&gt;
-&lt;script type="module"
-  src="https://playground.cbrowser.aihttps://cdn.cbrowser.ai/ui.mjs"&gt;
-&lt;/script&gt;</code></pre>
-          <p class="cui-text-sm cui-text-muted">10kb CSS + 5kb JS. Zero dependencies.</p>
-        </div>
-
-        <div class="cui-card">
-          <h3 class="cui-mt-0">Mode 3: npm Install</h3>
-          <p>For build systems. Import what you need.</p>
-          <pre><code>npm install cbrowser-ui</code></pre>
-          <pre><code>// ESM
-import 'cbrowser-ui/css';
-import { FocusTrap } from 'cbrowser-ui';
-
-// Or just the patch
-import 'cbrowser-ui/fix-bootstrap';</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Framework Patches -->
-    <section id="patches" style="margin-top: 4rem;">
-      <h2>Framework Patches</h2>
-      <p>Each patch targets the specific CIF-failing components in that framework. Before → After.</p>
-
-      <div class="tabs" role="tablist" data-cui-arrows="horizontal">
-        <button role="tab" aria-selected="true" aria-controls="panel-bootstrap">Bootstrap 5</button>
-        <button role="tab" aria-selected="false" aria-controls="panel-tailwind">Tailwind</button>
-        <button role="tab" aria-selected="false" aria-controls="panel-shadcn">shadcn/ui</button>
-        <button role="tab" aria-selected="false" aria-controls="panel-material">Material</button>
-      </div>
-
-      <div id="panel-bootstrap" role="tabpanel">
-        <h3>What fix-bootstrap.css changes</h3>
-        <div class="before-after">
-          <div class="cui-card">
-            <p class="cui-font-bold" style="color: var(--cui-destructive);">Before</p>
-            <ul>
-              <li><code class="code-inline">.btn-sm</code> is 32px tall (fails touch target)</li>
-              <li><code class="code-inline">.nav-link</code> is 36px (fails touch target)</li>
-              <li><code class="code-inline">.carousel</code> ignores prefers-reduced-motion</li>
-              <li><code class="code-inline">.text-muted</code> is 4.6:1 contrast (fails AAA)</li>
-              <li>Links in content not underlined (fails 1.4.1)</li>
-            </ul>
-            <span class="score-badge bad">CIF: 52</span>
+        <div class="showcase">
+          <div class="cui-card cui-card-highlight">
+            <span class="cui-badge cui-badge-primary" style="margin-bottom: 0.75rem;">Recommended</span>
+            <h3 style="margin-top: 0;">Patch your framework</h3>
+            <p>One line. Zero migration. Your site passes accessibility audits.</p>
+            <div class="code-block">
+              <span class="comment">&lt;!-- After your framework CSS --&gt;</span><br>
+              <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span><br>
+              &nbsp;&nbsp;<span class="attr">href</span>=<span class="string">"https://cdn.cbrowser.ai/fix-bootstrap.css"</span><span class="tag">&gt;</span>
+            </div>
+            <p class="cui-text-sm cui-text-muted" style="margin-top: 0.75rem;">Also: fix-tailwind.css · fix-shadcn.css · fix-material.css</p>
           </div>
+
           <div class="cui-card">
-            <p class="cui-font-bold" style="color: var(--cui-success);">After (one file added)</p>
-            <ul>
-              <li>All buttons 44px minimum</li>
-              <li>Nav links 44px with proper spacing</li>
-              <li>Carousel respects motion preferences</li>
-              <li>Muted text at 7:1 contrast</li>
-              <li>Content links underlined</li>
-            </ul>
-            <span class="score-badge good">CIF: 94</span>
+            <h3 style="margin-top: 0;">Use as your framework</h3>
+            <p>Replace Bootstrap or Tailwind entirely. Beautiful by default.</p>
+            <div class="code-block">
+              <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span><br>
+              &nbsp;&nbsp;<span class="attr">href</span>=<span class="string">"https://cdn.cbrowser.ai/ui.css"</span><span class="tag">&gt;</span><br>
+              <span class="tag">&lt;script</span> <span class="attr">type</span>=<span class="string">"module"</span><br>
+              &nbsp;&nbsp;<span class="attr">src</span>=<span class="string">"https://cdn.cbrowser.ai/ui.mjs"</span><span class="tag">&gt;&lt;/script&gt;</span>
+            </div>
+          </div>
+
+          <div class="cui-card">
+            <h3 style="margin-top: 0;">npm install</h3>
+            <p>For build systems. Import what you need.</p>
+            <div class="code-block">
+              npm install cbrowser-ui<br><br>
+              <span class="comment">// ESM</span><br>
+              <span class="tag">import</span> <span class="string">'cbrowser-ui/css'</span>;<br>
+              <span class="tag">import</span> { FocusTrap } <span class="tag">from</span> <span class="string">'cbrowser-ui'</span>;
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <hr class="gradient-divider">
 
     <!-- Components -->
-    <section id="components" style="margin-top: 4rem;">
-      <h2>Components</h2>
-      <p>Every component here scores 100 on its relevant CIF dimensions. Copy the HTML.</p>
+    <section id="components" class="cui-section">
+      <div class="cui-container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <span class="cui-badge" style="margin-bottom: 1rem;">Components</span>
+          <h2 class="cui-display-sm">Everything you need, accessible by default</h2>
+          <p class="cui-lead" style="margin: 1rem auto 0;">Every component scores 100 on CIF. Copy the HTML.</p>
+        </div>
 
-      <div class="demo-grid">
-        <!-- Button examples -->
-        <div class="cui-card">
-          <h3 class="cui-mt-0">Buttons</h3>
-          <div class="cui-stack cui-gap-sm">
-            <button class="cui-btn">Primary Action</button>
-            <button class="cui-btn cui-btn-secondary">Secondary</button>
-            <button class="cui-btn cui-btn-destructive">Delete</button>
-            <button class="cui-btn cui-btn-ghost">Ghost</button>
+        <div class="showcase">
+          <!-- Buttons -->
+          <div class="cui-card cui-card-elevated">
+            <h3 style="margin-top: 0;">Buttons</h3>
+            <div class="cui-stack cui-gap-sm">
+              <button class="cui-btn">Primary Action</button>
+              <button class="cui-btn cui-btn-secondary">Secondary</button>
+              <button class="cui-btn cui-btn-destructive">Destructive</button>
+              <button class="cui-btn cui-btn-ghost">Ghost</button>
+            </div>
           </div>
-          <p class="cui-text-sm cui-text-muted" style="margin-top: 1rem;">All 44px minimum. All keyboard accessible. All contrast-safe.</p>
-        </div>
 
-        <!-- Form example -->
-        <div class="cui-card">
-          <h3 class="cui-mt-0">Form</h3>
-          <form action="#" class="cui-stack cui-gap-sm">
-            <div>
-              <label for="demo-email">Email address</label>
-              <input type="email" id="demo-email" placeholder="you@example.com">
-              <p class="cui-hint">We'll never share your email.</p>
+          <!-- Form -->
+          <div class="cui-card cui-card-elevated">
+            <h3 style="margin-top: 0;">Form</h3>
+            <form action="#" class="cui-stack cui-gap-sm">
+              <div>
+                <label for="demo-email">Email</label>
+                <input type="email" id="demo-email" placeholder="you@example.com">
+              </div>
+              <div>
+                <label for="demo-pw">Password</label>
+                <input type="password" id="demo-pw" placeholder="8+ characters">
+              </div>
+              <label><input type="checkbox"> Remember me</label>
+              <button type="submit" class="cui-btn">Sign In</button>
+            </form>
+          </div>
+
+          <!-- Alerts -->
+          <div class="cui-card cui-card-elevated">
+            <h3 style="margin-top: 0;">Alerts</h3>
+            <div class="cui-stack cui-gap-sm">
+              <div class="cui-alert cui-alert-info" role="alert">
+                <strong>Info:</strong> Your account was updated.
+              </div>
+              <div class="cui-alert cui-alert-success" role="alert">
+                <strong>Success:</strong> Changes saved.
+              </div>
+              <div class="cui-alert cui-alert-warning" role="alert">
+                <strong>Warning:</strong> Credit card expires soon.
+              </div>
+              <div class="cui-alert cui-alert-error" role="alert">
+                <strong>Error:</strong> Payment failed.
+              </div>
             </div>
-            <div>
-              <label for="demo-password">Password</label>
-              <input type="password" id="demo-password" placeholder="8+ characters">
+          </div>
+
+          <!-- Badges -->
+          <div class="cui-card cui-card-elevated">
+            <h3 style="margin-top: 0;">Badges</h3>
+            <div class="cui-row" style="gap: 0.5rem; flex-wrap: wrap;">
+              <span class="cui-badge">Default</span>
+              <span class="cui-badge cui-badge-primary">Primary</span>
+              <span class="cui-badge cui-badge-success">Success</span>
+              <span class="cui-badge cui-badge-destructive">Error</span>
             </div>
-            <label>
-              <input type="checkbox"> Remember me
-            </label>
-            <button type="submit" class="cui-btn">Sign In</button>
-          </form>
-        </div>
+            <h3>Progress</h3>
+            <div class="cui-progress" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Upload progress">
+              <div class="cui-progress-bar" style="width: 72%;"></div>
+            </div>
+            <p class="cui-text-sm cui-text-muted" style="margin-top: 0.5rem;">72% complete</p>
+          </div>
 
-        <!-- Navigation example -->
-        <div class="cui-card">
-          <h3 class="cui-mt-0">Navigation</h3>
-          <nav aria-label="Example navigation" class="cui-nav" style="flex-direction: column; align-items: stretch;">
-            <a href="#" aria-current="page">Dashboard</a>
-            <a href="#">Settings</a>
-            <a href="#">Profile</a>
-            <a href="#">Sign Out</a>
-          </nav>
-          <p class="cui-text-sm cui-text-muted" style="margin-top: 1rem;">44px targets. Arrow key navigation. aria-current for active state.</p>
-        </div>
+          <!-- Table -->
+          <div class="cui-card cui-card-elevated" style="grid-column: span 2;">
+            <h3 style="margin-top: 0;">Table</h3>
+            <div class="cui-table-wrapper">
+              <table class="cui-table">
+                <thead>
+                  <tr><th>Framework</th><th>Size</th><th>Touch Targets</th><th>Motion Safe</th><th>Contrast</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Bootstrap 5</td><td>25kb</td><td style="color: var(--cui-destructive);">✗ 32px buttons</td><td style="color: var(--cui-destructive);">✗ No support</td><td>AA only</td></tr>
+                  <tr><td>Tailwind CSS</td><td>~15kb</td><td style="color: var(--cui-destructive);">✗ No minimum</td><td style="color: var(--cui-destructive);">✗ Partial</td><td style="color: var(--cui-destructive);">✗ gray-400 fails</td></tr>
+                  <tr><td>shadcn/ui</td><td>~20kb</td><td>✓ Configurable</td><td style="color: var(--cui-destructive);">✗ Partial</td><td>AA</td></tr>
+                  <tr style="background: color-mix(in oklch, var(--cui-primary) 5%, var(--cui-bg));"><td><strong>cbrowser-ui</strong></td><td><strong>21kb</strong></td><td style="color: var(--cui-success);"><strong>✓ 44px enforced</strong></td><td style="color: var(--cui-success);"><strong>✓ Full support</strong></td><td style="color: var(--cui-success);"><strong>AAA (7:1)</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-        <!-- Card example -->
-        <div class="cui-card">
-          <h3 class="cui-mt-0">Cards</h3>
-          <p>Cards use semantic HTML and proper heading hierarchy. No div soup.</p>
-          <p class="cui-text-sm cui-text-muted">This card you're reading right now IS the example. View source.</p>
+          <!-- Accordion -->
+          <div class="cui-card cui-card-elevated">
+            <h3 style="margin-top: 0;">Accordion</h3>
+            <details class="cui-accordion">
+              <summary>What is cbrowser-ui?</summary>
+              <p>A CSS framework that makes any website accessible and beautiful. Use standalone or as a patch on top of Bootstrap, Tailwind, or shadcn.</p>
+            </details>
+            <details class="cui-accordion">
+              <summary>Is it free?</summary>
+              <p>Yes. MIT licensed, open source, free forever. The CDN is free too.</p>
+            </details>
+            <details class="cui-accordion">
+              <summary>Does it work with React?</summary>
+              <p>Yes. It's framework-agnostic CSS. Works with React, Vue, Svelte, plain HTML — anything.</p>
+            </details>
+          </div>
+
+          <!-- Navigation -->
+          <div class="cui-card cui-card-elevated">
+            <h3 style="margin-top: 0;">Navigation</h3>
+            <nav aria-label="Example" class="cui-nav" style="flex-direction: column; align-items: stretch; background: var(--cui-surface); border-radius: var(--cui-radius); padding: 0.5rem;">
+              <a href="#" aria-current="page">Dashboard</a>
+              <a href="#">Analytics</a>
+              <a href="#">Settings</a>
+              <a href="#">Sign Out</a>
+            </nav>
+            <h3>Breadcrumbs</h3>
+            <nav aria-label="Breadcrumb">
+              <ol class="cui-breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><span aria-current="page">Details</span></li>
+              </ol>
+            </nav>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Themes -->
-    <section id="themes" style="margin-top: 4rem;">
-      <h2>Themes</h2>
-      <p>Override 20 CSS variables. The entire design changes. Accessibility stays perfect.</p>
-      <pre><code>:root {
-  --cui-primary: #7c3aed;        /* Purple instead of blue */
-  --cui-primary-fg: #ffffff;
-  --cui-primary-hover: #6d28d9;
-  --cui-radius: 1rem;            /* Rounder corners */
-  --cui-font: 'Inter', sans-serif;
-}</code></pre>
-      <p>
-        Every color combination is validated against WCAG AAA (7:1) for normal text
-        and AA (4.5:1) for large text. The theme editor (coming soon) prevents you from
-        picking colors that break contrast.
-      </p>
+    <hr class="gradient-divider">
+
+    <!-- Patches -->
+    <section id="patches" class="cui-section cui-section-alt">
+      <div class="cui-container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <span class="cui-badge cui-badge-primary" style="margin-bottom: 1rem;">Framework Patches</span>
+          <h2 class="cui-display-sm">Before and after — one file</h2>
+          <p class="cui-lead" style="margin: 1rem auto 0;">Same Bootstrap site. One CSS file added. CIF score jumps 40+ points.</p>
+        </div>
+
+        <div class="compare">
+          <div class="cui-card compare-bad">
+            <span class="compare-label bad">Before — Bootstrap 5</span>
+            <ul>
+              <li><code>.btn-sm</code> is 32px — fails touch target</li>
+              <li><code>.nav-link</code> is 36px — fails touch target</li>
+              <li><code>.carousel</code> ignores motion preferences</li>
+              <li><code>.text-muted</code> is 4.6:1 — fails AAA contrast</li>
+              <li>Links in body text are not underlined</li>
+              <li>Focus rings removed by default</li>
+            </ul>
+            <div style="margin-top: 1rem;">
+              <span class="cui-badge cui-badge-destructive" style="font-size: 1rem; padding: 0.5rem 1rem;">CIF: 52</span>
+            </div>
+          </div>
+          <div class="cui-card compare-good">
+            <span class="compare-label good">After — + fix-bootstrap.css</span>
+            <ul>
+              <li>All buttons enforced to 44px minimum</li>
+              <li>Nav links padded to 44px with spacing</li>
+              <li>Carousel respects prefers-reduced-motion</li>
+              <li>Muted text boosted to 7:1 contrast</li>
+              <li>Content links underlined by default</li>
+              <li>Focus rings always visible on keyboard</li>
+            </ul>
+            <div style="margin-top: 1rem;">
+              <span class="cui-badge cui-badge-success" style="font-size: 1rem; padding: 0.5rem 1rem;">CIF: 94</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <hr class="gradient-divider">
+
+    <!-- Themes -->
+    <section id="themes" class="cui-section">
+      <div class="cui-container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <span class="cui-badge" style="margin-bottom: 1rem;">Theming</span>
+          <h2 class="cui-display-sm">20 variables. Infinite designs.</h2>
+          <p class="cui-lead" style="margin: 1rem auto 0;">Override CSS custom properties. The entire design changes. Accessibility stays perfect.</p>
+        </div>
+
+        <div class="code-block" style="max-width: 36rem; margin: 0 auto;">
+          <span class="comment">/* Your brand. Still accessible. */</span><br>
+          <span class="tag">:root</span> {<br>
+          &nbsp;&nbsp;<span class="attr">--cui-primary</span>: <span class="string">#7c3aed</span>;&nbsp;&nbsp;&nbsp;<span class="comment">/* purple */</span><br>
+          &nbsp;&nbsp;<span class="attr">--cui-primary-fg</span>: <span class="string">#ffffff</span>;<br>
+          &nbsp;&nbsp;<span class="attr">--cui-radius</span>: <span class="string">1rem</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* rounder */</span><br>
+          &nbsp;&nbsp;<span class="attr">--cui-font</span>: <span class="string">'Instrument Sans'</span>;<br>
+          }
+        </div>
+
+        <p class="cui-text-muted" style="text-align: center; margin-top: 1.5rem; max-width: 50ch; margin-left: auto; margin-right: auto;">
+          Every color combination is validated against WCAG AAA. The theme editor (coming soon) prevents you from picking colors that break contrast.
+        </p>
+      </div>
+    </section>
+
+    <hr class="gradient-divider">
+
     <!-- CTA -->
-    <section style="margin-top: 4rem; text-align: center; padding: 3rem 0;">
-      <h2>Prove accessible can be beautiful.</h2>
-      <p style="max-width: 50ch; margin: 0 auto 2rem;">
-        Start with the patch for your framework. Or go all-in with cbrowser-ui as your design system.
-        Either way, your site passes every audit.
-      </p>
-      <div class="cui-row" style="justify-content: center; gap: 1rem;">
-        <a href="#get-started" class="cui-btn">Get Started</a>
-        <a href="https://github.com/alexandriashai/cbrowser-ui" class="cui-btn cui-btn-secondary" target="_blank" rel="noopener">GitHub</a>
+    <section class="cui-section cui-hero-gradient" style="text-align: center;">
+      <div class="cui-container">
+        <h2 class="cui-display-sm">Accessible design is beautiful design.</h2>
+        <p class="cui-lead" style="margin: 1rem auto 2rem; text-align: center;">
+          Start with the patch for your framework. Or go all-in. Either way, every user can use your site.
+        </p>
+        <div class="cui-row" style="justify-content: center; gap: 1rem;">
+          <a href="#get-started" class="cui-btn cui-glow" style="padding: 0.875rem 2rem; font-size: 1.0625rem;">Get Started</a>
+          <a href="https://github.com/alexandriashai/cbrowser-ui" class="cui-btn cui-btn-secondary" style="padding: 0.875rem 2rem; font-size: 1.0625rem;" target="_blank" rel="noopener">Star on GitHub</a>
+        </div>
       </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer aria-label="Site footer" style="border-top: 1px solid var(--cui-border); margin-top: 4rem;">
-    <div class="cui-container" style="padding-block: 2rem;">
-      <p class="cui-text-sm cui-text-muted">
-        cbrowser-ui v0.1.0. MIT License. Built by <a href="https://cbrowser.ai">CBrowser</a>.
-        <br>This page scores 100 on every CIF dimension. <a href="https://cbrowser.ai/cif">What is CIF?</a>
-      </p>
+  <footer aria-label="Site footer" style="border-top: 1px solid var(--cui-border);">
+    <div class="cui-container" style="padding: 2rem 0;">
+      <div class="cui-row" style="justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <p class="cui-text-sm"><strong class="cui-gradient-text">cbrowser-ui</strong> · MIT License</p>
+          <p class="cui-text-sm cui-text-muted">Built by <a href="https://cbrowser.ai">CBrowser</a>. Proving accessible can be beautiful.</p>
+        </div>
+        <div class="cui-row" style="gap: 1.5rem;">
+          <a href="https://github.com/alexandriashai/cbrowser-ui" class="cui-text-sm" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/cbrowser-ui" class="cui-text-sm" target="_blank" rel="noopener">npm</a>
+          <a href="https://cbrowser.ai/cif" class="cui-text-sm" target="_blank" rel="noopener">What is CIF?</a>
+        </div>
+      </div>
     </div>
   </footer>
 </body>
