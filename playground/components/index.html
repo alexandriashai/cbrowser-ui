@@ -13,7 +13,7 @@
     @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; --cui-gradient-start: #818cf8; --cui-gradient-end: #a78bfa; } }
 
     /* Component docs layout */
-    .docs-layout { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; }
+    .docs-layout { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; max-width: 100%; overflow: hidden; }
     @media (max-width: 768px) { .docs-layout { grid-template-columns: 1fr; } }
 
     .docs-sidebar { position: sticky; top: 5rem; align-self: start; }
@@ -33,7 +33,7 @@
     .component-desc { color: var(--cui-muted); margin-bottom: 1.5rem; max-width: 60ch; }
 
     /* Live preview + code */
-    .preview-block { border: 1px solid var(--cui-border); border-radius: var(--cui-radius); overflow: hidden; margin: 1rem 0; }
+    .preview-block { border: 1px solid var(--cui-border); border-radius: var(--cui-radius); overflow: hidden; margin: 1rem 0; max-width: 100%; }
     .preview-render { padding: 1.5rem; background: var(--cui-bg); }
     .preview-code { position: relative; }
     .preview-code pre { margin: 0; padding: 1.25rem; background: #0f172a; color: #e2e8f0; font-size: 0.8125rem; line-height: 1.65; overflow-x: auto; border-radius: 0; max-width: 100%; }
@@ -303,7 +303,7 @@
 
           <div class="preview-block">
             <div class="preview-render">
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 1rem;">
                 <div class="cui-card">
                   <h3 style="margin-top: 0;">Default</h3>
                   <p class="cui-text-sm cui-text-muted">Subtle border, hover shadow.</p>
@@ -486,7 +486,7 @@
 
           <div class="preview-block">
             <div class="preview-render">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 1.5rem;">
                 <div>
                   <p class="cui-text-sm cui-font-bold" style="margin-bottom: 0.5rem;">Vertical</p>
                   <nav aria-label="Example vertical nav" class="cui-nav" style="flex-direction: column; align-items: stretch; background: var(--cui-surface); border-radius: var(--cui-radius); padding: 0.5rem;">
