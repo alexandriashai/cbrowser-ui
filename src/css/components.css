@@ -546,6 +546,160 @@
 }
 
 /* ============================================
+   HEADER & MOBILE NAVIGATION
+   Desktop: horizontal nav. Mobile: slide-out drawer.
+   Usage:
+     <header class="cui-header">
+       <a href="/" class="cui-header-logo">Brand</a>
+       <nav class="cui-header-nav" id="nav" aria-label="Main">...</nav>
+       <button class="cui-header-toggle" aria-controls="nav" aria-expanded="false">☰</button>
+     </header>
+   Requires: cbrowser-ui.js for toggle behavior
+   ============================================ */
+.cui-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem var(--cui-spacing);
+  border-bottom: 1px solid var(--cui-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in oklch, var(--cui-bg) 90%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cui-header-logo {
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-decoration: none;
+  color: var(--cui-fg);
+  margin-right: auto;
+}
+
+.cui-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.cui-header-nav a,
+.cui-header-nav button {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--cui-muted);
+  text-decoration: none;
+  border-radius: var(--cui-radius);
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--cui-duration) var(--cui-easing),
+              background var(--cui-duration) var(--cui-easing);
+}
+
+.cui-header-nav a:hover,
+.cui-header-nav button:hover {
+  color: var(--cui-fg);
+  background: var(--cui-surface);
+}
+
+.cui-header-nav [aria-current="page"] {
+  color: var(--cui-primary);
+  background: color-mix(in oklch, var(--cui-primary) 8%, transparent);
+}
+
+/* Hamburger toggle — mobile only */
+.cui-header-toggle {
+  display: none;
+  min-height: 44px;
+  min-width: 44px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--cui-fg);
+  cursor: pointer;
+  border-radius: var(--cui-radius);
+  padding: 0.5rem;
+}
+
+.cui-header-toggle:hover {
+  background: var(--cui-surface);
+}
+
+/* Mobile: hide nav, show toggle */
+@media (max-width: 768px) {
+  .cui-header-toggle {
+    display: inline-flex;
+  }
+
+  .cui-header-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(320px, 85vw);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 1.5rem;
+    background: var(--cui-bg);
+    border-left: 1px solid var(--cui-border);
+    box-shadow: var(--cui-shadow-lg);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 250ms var(--cui-easing);
+    overflow-y: auto;
+  }
+
+  .cui-header-nav[data-open="true"] {
+    transform: translateX(0);
+  }
+
+  .cui-header-nav a,
+  .cui-header-nav button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.875rem 1rem;
+    border-radius: var(--cui-radius);
+    font-size: 1rem;
+  }
+
+  .cui-header-nav a + a {
+    margin-top: 2px;
+  }
+
+  /* Backdrop */
+  .cui-header-nav::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms;
+  }
+
+  .cui-header-nav[data-open="true"]::before {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cui-header-nav {
+    transition: none;
+  }
+}
+
+/* ============================================
    RESPONSIVE BREAKPOINTS (as container queries)
    Usage: Apply cui-container to parent, then use @container
    ============================================ */

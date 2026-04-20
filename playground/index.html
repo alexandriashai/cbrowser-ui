@@ -22,18 +22,20 @@
   <!-- Skip link -->
   <a href="#main" class="cui-skip-link">Skip to main content</a>
 
-  <!-- Navigation -->
-  <header>
-    <nav aria-label="Main navigation" class="cui-container" style="padding-block: 0.5rem;">
-      <div class="cui-nav">
-        <a href="/" aria-current="page"><strong>cbrowser-ui</strong></a>
-        <a href="#get-started">Get Started</a>
-        <a href="#patches">Patches</a>
-        <a href="#components">Components</a>
-        <a href="#themes">Themes</a>
-        <a href="https://cbrowser.ai" target="_blank" rel="noopener">CBrowser</a>
-      </div>
+  <!-- Header with responsive nav -->
+  <header class="cui-header cui-container-lg" style="margin: 0 auto;">
+    <a href="/" class="cui-header-logo" aria-current="page">cbrowser-ui</a>
+    <nav class="cui-header-nav" id="main-nav" aria-label="Main navigation">
+      <a href="#get-started">Get Started</a>
+      <a href="#patches">Patches</a>
+      <a href="#components">Components</a>
+      <a href="#themes">Themes</a>
+      <a href="https://github.com/alexandriashai/cbrowser-ui" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://cbrowser.ai" target="_blank" rel="noopener">CBrowser</a>
     </nav>
+    <button class="cui-header-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </header>
 
   <!-- Hero -->

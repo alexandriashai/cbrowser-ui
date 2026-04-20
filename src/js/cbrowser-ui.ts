@@ -274,6 +274,47 @@ function autoInit() {
     initArrowNav(el, { orientation });
   });
 
+  // Mobile nav toggle
+  document.querySelectorAll<HTMLButtonElement>('.cui-header-toggle').forEach(toggle => {
+    const navId = toggle.getAttribute('aria-controls');
+    const nav = navId ? document.getElementById(navId) : null;
+    if (!nav) return;
+
+    const trap = new FocusTrap(nav, {
+      onEscape: () => close(),
+      returnFocus: true,
+    });
+
+    function open() {
+      nav!.setAttribute('data-open', 'true');
+      toggle.setAttribute('aria-expanded', 'true');
+      trap.activate();
+      // Close on backdrop click
+      nav!.addEventListener('click', handleBackdropClick);
+    }
+
+    function close() {
+      nav!.setAttribute('data-open', 'false');
+      toggle.setAttribute('aria-expanded', 'false');
+      trap.deactivate();
+      nav!.removeEventListener('click', handleBackdropClick);
+    }
+
+    function handleBackdropClick(e: Event) {
+      if (e.target === nav) close(); // clicked the ::before backdrop area
+    }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = nav!.getAttribute('data-open') === 'true';
+      isOpen ? close() : open();
+    });
+
+    // Close on nav link click (navigate)
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => close());
+    });
+  });
+
   // Skip links
   document.querySelectorAll<HTMLAnchorElement>('.cui-skip-link').forEach(link => {
     link.addEventListener('click', (e) => {
