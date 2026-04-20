@@ -7,21 +7,10 @@
   <meta name="description" content="Install cbrowser-ui in 30 seconds. CDN, npm, or framework patch.">
   <link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css">
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
+  <link rel="stylesheet" href="/cdn/playground.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
-    @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; } }
-    .code-block { background: #0f172a; color: #e2e8f0; padding: 1.25rem 1.5rem; border-radius: var(--cui-radius); font-family: var(--cui-font-mono); font-size: 0.875rem; line-height: 1.7; overflow-x: auto; border: 1px solid #1e293b; position: relative; max-width: 100%; }
-    .code-block .comment { color: #64748b; }
-    .code-block .tag { color: #f472b6; }
-    .code-block .attr { color: #60a5fa; }
-    .code-block .string { color: #4ade80; }
-    .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; min-height: 44px; min-width: 44px; padding: 0.5rem 0.75rem; background: #334155; color: #e2e8f0; border: none; border-radius: var(--cui-radius); cursor: pointer; font-size: 0.75rem; }
-    .copy-btn:hover { background: #475569; }
-    .step { counter-increment: steps; position: relative; padding-left: 3.5rem; margin-bottom: 3rem; }
-    .step::before { content: counter(steps); position: absolute; left: 0; top: 0; width: 2.5rem; height: 2.5rem; background: var(--cui-primary); color: var(--cui-primary-fg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; }
-    .steps { counter-reset: steps; }
-  </style>
+  <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
+  @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; } }</style>
 </head>
 <body>
   <a href="#main" class="cui-skip-link">Skip to main content</a>
@@ -53,8 +42,8 @@
         <div class="cui-card cui-card-highlight cui-mt-2" style="margin-bottom: 2rem;">
           <h2 style="margin-top: 0;">Option 1: CDN <span class="cui-badge cui-badge-primary" style="margin-left: 0.5rem;">Fastest</span></h2>
           <p>No build step. No install. Just two tags in your HTML.</p>
-          <div class="code-block">
-            <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+          <div class="pg-code">
+            <button class="pg-copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
             <code>&lt;link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css"&gt;
 &lt;script type="module" src="https://cdn.cbrowser.ai/ui.mjs"&gt;&lt;/script&gt;</code>
           </div>
@@ -65,13 +54,13 @@
         <div class="cui-card" style="margin-bottom: 2rem;">
           <h2 style="margin-top: 0;">Option 2: npm</h2>
           <p>For build systems — React, Next.js, Vite, Astro, anything with a bundler.</p>
-          <div class="code-block">
-            <button class="copy-btn" onclick="navigator.clipboard.writeText('npm install cbrowser-ui')">Copy</button>
+          <div class="pg-code">
+            <button class="pg-copy" onclick="navigator.clipboard.writeText('npm install cbrowser-ui')">Copy</button>
             <code>npm install cbrowser-ui</code>
           </div>
           <p style="margin-top: 1rem;">Then import in your entry point:</p>
-          <div class="code-block">
-            <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+          <div class="pg-code">
+            <button class="pg-copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
             <code><span class="comment">// Import the CSS</span>
 <span class="tag">import</span> <span class="string">'cbrowser-ui/css'</span>;
 
@@ -84,8 +73,8 @@
         <div class="cui-card" style="margin-bottom: 2rem;">
           <h2 style="margin-top: 0;">Option 3: Patch your existing framework</h2>
           <p>Already using Bootstrap, Tailwind, or shadcn? Add one line after your framework CSS. Nothing else changes.</p>
-          <div class="code-block">
-            <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+          <div class="pg-code">
+            <button class="pg-copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
             <code><span class="comment">&lt;!-- Bootstrap 5 --&gt;</span>
 &lt;link rel="stylesheet" href="<span class="string">https://cdn.cbrowser.ai/fix-bootstrap.css</span>"&gt;
 
@@ -103,8 +92,8 @@
         <h2 class="cui-mt-2">Your first page</h2>
         <p>Copy this complete HTML file. It has everything: skip link, semantic landmarks, accessible navigation, labeled form, and proper heading hierarchy.</p>
 
-        <div class="code-block" style="margin: 1.5rem 0;">
-          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+        <div class="pg-code" style="margin: 1.5rem 0;">
+          <button class="pg-copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
           <code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -173,8 +162,8 @@
         <h2 class="cui-mt-2">Customize the theme</h2>
         <p>Override any of the 20 CSS custom properties. Every color is AAA-contrast-safe in both light and dark mode.</p>
 
-        <div class="code-block" style="margin: 1.5rem 0;">
-          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+        <div class="pg-code" style="margin: 1.5rem 0;">
+          <button class="pg-copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
           <code><span class="tag">:root</span> {
   <span class="comment">/* Brand colors */</span>
   <span class="attr">--cui-primary</span>: <span class="string">#059669</span>;        <span class="comment">/* emerald */</span>

@@ -223,15 +223,37 @@
 
 .pg-preview-render { padding: 1.5rem; }
 
-.pg-preview-code pre {
+/* Code preview blocks — dark background with syntax colors */
+.pg-preview-code pre,
+.pg-code {
   margin: 0;
   padding: 1.25rem;
   background: #0f172a;
   color: #e2e8f0;
+  font-family: var(--cui-font-mono);
   font-size: 0.8125rem;
-  line-height: 1.65;
+  line-height: 1.7;
   overflow-x: auto;
   max-width: 100%;
+  border: 1px solid #1e293b;
+  border-radius: var(--cui-radius);
+}
+
+.pg-preview-code pre {
+  border-radius: 0;
+  border: none;
+}
+
+.pg-preview-code pre code,
+.pg-preview-code code,
+.pg-code code {
+  display: block;
+  width: max-content;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
 }
 
 /* ── Component section ── */
@@ -350,3 +372,39 @@
   font-weight: 700;
   z-index: 1;
 }
+
+/* ── Template wireframe previews ── */
+.pg-template-preview-inner {
+  width: 100%;
+  max-width: 280px;
+  border-radius: var(--cui-radius);
+  border: 1px solid var(--cui-border);
+  background: var(--cui-bg);
+  overflow: hidden;
+  box-shadow: var(--cui-shadow-sm);
+  font-size: 0.5rem;
+  line-height: 1.4;
+}
+
+.pg-template-preview-inner .mini-header {
+  background: var(--cui-surface);
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid var(--cui-border);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.pg-template-preview-inner .mini-dot {
+  width: 4px; height: 4px; border-radius: 50%; background: var(--cui-muted);
+}
+
+.pg-template-preview-inner .mini-content { padding: 0.5rem; }
+.pg-template-preview-inner .mini-block { background: var(--cui-surface); border-radius: 2px; height: 6px; margin: 3px 0; }
+.pg-template-preview-inner .mini-block.w-60 { width: 60%; }
+.pg-template-preview-inner .mini-block.w-40 { width: 40%; }
+.pg-template-preview-inner .mini-block.w-80 { width: 80%; }
+.pg-template-preview-inner .mini-block.primary { background: var(--cui-primary); }
+.pg-template-preview-inner .mini-block.tall { height: 20px; }
+.pg-template-preview-inner .mini-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; }
+.pg-template-preview-inner .mini-card { background: var(--cui-surface); border-radius: 2px; padding: 4px; }

@@ -6,35 +6,11 @@
   <title>Templates — cbrowser-ui</title>
   <meta name="description" content="Accessible page templates you can copy. Landing page, blog, dashboard, pricing, login — all score 100 on CIF.">
   <link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css">
+  <link rel="stylesheet" href="/cdn/playground.css">
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
-    @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; } }
-    .template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-    .template-card { border: 1px solid var(--cui-border); border-radius: calc(var(--cui-radius) * 1.5); overflow: hidden; transition: box-shadow 200ms, transform 200ms; }
-    .template-card:hover { box-shadow: var(--cui-shadow-lg); }
-    @media (prefers-reduced-motion: no-preference) { .template-card:hover { transform: translateY(-2px); } }
-    .template-preview { background: var(--cui-surface); padding: 2rem; min-height: 200px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--cui-border); position: relative; overflow: hidden; }
-    .template-preview-inner { width: 100%; max-width: 280px; border-radius: var(--cui-radius); border: 1px solid var(--cui-border); background: var(--cui-bg); overflow: hidden; box-shadow: var(--cui-shadow-sm); font-size: 0.5rem; line-height: 1.4; }
-    .template-preview-inner .mini-header { background: var(--cui-surface); padding: 0.3rem 0.5rem; border-bottom: 1px solid var(--cui-border); display: flex; align-items: center; gap: 0.3rem; }
-    .template-preview-inner .mini-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--cui-muted); }
-    .template-preview-inner .mini-content { padding: 0.5rem; }
-    .template-preview-inner .mini-block { background: var(--cui-surface); border-radius: 2px; height: 6px; margin: 3px 0; }
-    .template-preview-inner .mini-block.w-60 { width: 60%; }
-    .template-preview-inner .mini-block.w-40 { width: 40%; }
-    .template-preview-inner .mini-block.w-80 { width: 80%; }
-    .template-preview-inner .mini-block.primary { background: var(--cui-primary); }
-    .template-preview-inner .mini-block.tall { height: 20px; }
-    .template-preview-inner .mini-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; }
-    .template-preview-inner .mini-card { background: var(--cui-surface); border-radius: 2px; padding: 4px; }
-    .template-info { padding: 1.25rem; }
-    .template-info h3 { margin: 0 0 0.375rem; font-size: 1.125rem; }
-    .template-info p { margin: 0; color: var(--cui-muted); font-size: 0.875rem; }
-    .template-actions { padding: 0 1.25rem 1.25rem; display: flex; gap: 0.5rem; }
-    .coming-soon { opacity: 0.5; pointer-events: none; position: relative; }
-    .coming-soon::after { content: 'Coming Soon'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--cui-fg); color: var(--cui-bg); padding: 0.375rem 1rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; z-index: 1; }
-  </style>
+  <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
+  @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; } }</style>
 </head>
 <body>
   <a href="#main" class="cui-skip-link">Skip to main content</a>
@@ -64,11 +40,11 @@
           <p class="cui-lead" style="margin: 1rem auto 0; text-align: center;">Every template scores 100 on CIF accessibility. Copy the HTML, customize the theme, ship.</p>
         </div>
 
-        <div class="template-grid">
+        <div class="pg-template-grid">
           <!-- Landing Page -->
-          <div class="template-card">
-            <div class="template-preview">
-              <div class="template-preview-inner">
+          <div class="pg-template-card">
+            <div class="pg-template-preview">
+              <div class="pg-template-preview-inner">
                 <div class="mini-header">
                   <span class="mini-dot"></span><span class="mini-dot"></span><span class="mini-dot"></span>
                   <div style="margin-left: auto; display: flex; gap: 3px;"><div class="mini-block w-40" style="margin: 0; width: 12px;"></div><div class="mini-block w-40" style="margin: 0; width: 12px;"></div><div class="mini-block w-40" style="margin: 0; width: 12px;"></div></div>
@@ -88,20 +64,20 @@
                 </div>
               </div>
             </div>
-            <div class="template-info">
+            <div class="pg-template-info">
               <h3>Landing Page</h3>
               <p>Hero section, feature grid, testimonials, pricing, and CTA. The complete marketing page.</p>
             </div>
-            <div class="template-actions">
+            <div class="pg-template-actions">
               <a href="/templates/landing.html" class="cui-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Preview</a>
               <a href="https://github.com/alexandriashai/cbrowser-ui/blob/main/playground/templates/landing.html" class="cui-btn cui-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;" target="_blank" rel="noopener">View Code</a>
             </div>
           </div>
 
           <!-- Blog -->
-          <div class="template-card">
-            <div class="template-preview">
-              <div class="template-preview-inner">
+          <div class="pg-template-card">
+            <div class="pg-template-preview">
+              <div class="pg-template-preview-inner">
                 <div class="mini-header">
                   <span class="mini-dot"></span><span class="mini-dot"></span><span class="mini-dot"></span>
                 </div>
@@ -118,20 +94,20 @@
                 </div>
               </div>
             </div>
-            <div class="template-info">
+            <div class="pg-template-info">
               <h3>Blog Post</h3>
               <p>Article layout with readable typography, table of contents, author info, and related posts.</p>
             </div>
-            <div class="template-actions">
+            <div class="pg-template-actions">
               <a href="/templates/blog.html" class="cui-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Preview</a>
               <a href="https://github.com/alexandriashai/cbrowser-ui/blob/main/playground/templates/blog.html" class="cui-btn cui-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;" target="_blank" rel="noopener">View Code</a>
             </div>
           </div>
 
           <!-- Dashboard -->
-          <div class="template-card coming-soon">
-            <div class="template-preview">
-              <div class="template-preview-inner">
+          <div class="pg-template-card pg-coming-soon">
+            <div class="pg-template-preview">
+              <div class="pg-template-preview-inner">
                 <div class="mini-header">
                   <span class="mini-dot"></span><span class="mini-dot"></span><span class="mini-dot"></span>
                 </div>
@@ -156,19 +132,19 @@
                 </div>
               </div>
             </div>
-            <div class="template-info">
+            <div class="pg-template-info">
               <h3>Dashboard</h3>
               <p>Sidebar navigation, stat cards, data table, and chart placeholders. Admin panel starter.</p>
             </div>
-            <div class="template-actions">
+            <div class="pg-template-actions">
               <span class="cui-btn cui-btn-ghost" style="font-size: 0.875rem; padding: 0.5rem 1rem; opacity: 0.5;">Coming Soon</span>
             </div>
           </div>
 
           <!-- Pricing -->
-          <div class="template-card coming-soon">
-            <div class="template-preview">
-              <div class="template-preview-inner">
+          <div class="pg-template-card pg-coming-soon">
+            <div class="pg-template-preview">
+              <div class="pg-template-preview-inner">
                 <div class="mini-header"><span class="mini-dot"></span><span class="mini-dot"></span><span class="mini-dot"></span></div>
                 <div class="mini-content" style="text-align: center; padding: 0.5rem;">
                   <div class="mini-block w-60" style="margin: 0 auto 4px; height: 6px;"></div>
@@ -180,19 +156,19 @@
                 </div>
               </div>
             </div>
-            <div class="template-info">
+            <div class="pg-template-info">
               <h3>Pricing Page</h3>
               <p>Three-tier pricing with feature comparison, toggle for monthly/annual, and FAQ accordion.</p>
             </div>
-            <div class="template-actions">
+            <div class="pg-template-actions">
               <span class="cui-btn cui-btn-ghost" style="font-size: 0.875rem; padding: 0.5rem 1rem; opacity: 0.5;">Coming Soon</span>
             </div>
           </div>
 
           <!-- Login -->
-          <div class="template-card coming-soon">
-            <div class="template-preview">
-              <div class="template-preview-inner">
+          <div class="pg-template-card pg-coming-soon">
+            <div class="pg-template-preview">
+              <div class="pg-template-preview-inner">
                 <div class="mini-header"><span class="mini-dot"></span><span class="mini-dot"></span><span class="mini-dot"></span></div>
                 <div class="mini-content" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
                   <div style="width: 70%;">
@@ -204,19 +180,19 @@
                 </div>
               </div>
             </div>
-            <div class="template-info">
+            <div class="pg-template-info">
               <h3>Login / Register</h3>
               <p>Centered auth form with social login buttons, password visibility toggle, and error states.</p>
             </div>
-            <div class="template-actions">
+            <div class="pg-template-actions">
               <span class="cui-btn cui-btn-ghost" style="font-size: 0.875rem; padding: 0.5rem 1rem; opacity: 0.5;">Coming Soon</span>
             </div>
           </div>
 
           <!-- Documentation -->
-          <div class="template-card coming-soon">
-            <div class="template-preview">
-              <div class="template-preview-inner">
+          <div class="pg-template-card pg-coming-soon">
+            <div class="pg-template-preview">
+              <div class="pg-template-preview-inner">
                 <div class="mini-header"><span class="mini-dot"></span><span class="mini-dot"></span><span class="mini-dot"></span></div>
                 <div class="mini-content">
                   <div style="display: grid; grid-template-columns: 35px 1fr; gap: 4px;">
@@ -226,11 +202,11 @@
                 </div>
               </div>
             </div>
-            <div class="template-info">
+            <div class="pg-template-info">
               <h3>Documentation</h3>
               <p>Sidebar navigation, article content, table of contents, code blocks, and search.</p>
             </div>
-            <div class="template-actions">
+            <div class="pg-template-actions">
               <span class="cui-btn cui-btn-ghost" style="font-size: 0.875rem; padding: 0.5rem 1rem; opacity: 0.5;">Coming Soon</span>
             </div>
           </div>
