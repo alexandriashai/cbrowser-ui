@@ -573,6 +573,8 @@
   top: 0;
   z-index: 100;
   background: var(--cui-bg);
+  /* z-index creates a stacking context, but the mobile nav is portaled to <body>
+     via JS when opened, so it escapes this context. */
 }
 
 .cui-header-logo {

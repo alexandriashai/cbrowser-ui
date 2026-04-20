@@ -305,7 +305,13 @@ function autoInit() {
       returnFocus: true,
     });
 
+    // Store original parent so we can return the nav when closing
+    const originalParent = nav!.parentElement!;
+    const originalNextSibling = nav!.nextElementSibling;
+
     function open() {
+      // Move nav to body to escape header's stacking context
+      document.body.appendChild(nav!);
       nav!.setAttribute('data-open', 'true');
       backdrop.setAttribute('data-open', 'true');
       toggle.setAttribute('aria-expanded', 'true');
@@ -319,6 +325,14 @@ function autoInit() {
       toggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
       trap.deactivate();
+      // Return nav to header after transition
+      setTimeout(() => {
+        if (originalNextSibling) {
+          originalParent.insertBefore(nav!, originalNextSibling);
+        } else {
+          originalParent.appendChild(nav!);
+        }
+      }, 300);
     }
 
     toggle.addEventListener('click', () => {
