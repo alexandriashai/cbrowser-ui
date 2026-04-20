@@ -1,0 +1,110 @@
+/**
+ * cbrowser-ui — Tailwind CSS Accessibility Patch
+ *
+ * Add this AFTER your Tailwind output to fix CIF-failing patterns.
+ * Fixes: touch targets on utilities, motion control, contrast, focus.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="output.css"> <!-- your Tailwind build -->
+ *   <link rel="stylesheet" href="fix-tailwind.css">
+ */
+
+/* ── Touch Targets ── */
+
+/* Any element styled as a button or link should be tappable */
+[class*="cursor-pointer"],
+[class*="hover:bg-"],
+a[class*="px-"],
+button[class*="px-"] {
+  min-height: 44px;
+}
+
+/* Tailwind's small button patterns */
+[class*="py-1"][class*="px-2"],
+[class*="py-1"][class*="px-3"] {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Motion Control ── */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Tailwind animate utilities */
+  [class*="animate-"] {
+    animation: none !important;
+  }
+
+  /* Transition utilities still fire but instantly */
+  [class*="transition"] {
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Specific animation classes */
+  .animate-spin,
+  .animate-ping,
+  .animate-pulse,
+  .animate-bounce {
+    animation: none !important;
+  }
+}
+
+/* ── Focus Rings ── */
+
+/* Override Tailwind's focus:ring with visible outline for keyboard */
+*:focus-visible {
+  outline: 3px solid rgb(37, 99, 235) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
+}
+
+/* Tailwind often removes focus styles — restore them */
+[class*="focus:outline-none"]:focus-visible {
+  outline: 3px solid rgb(37, 99, 235) !important;
+  outline-offset: 3px !important;
+}
+
+/* ── Contrast Fixes ── */
+
+/* Tailwind's gray-400 on white fails WCAG AA */
+.text-gray-400,
+.text-slate-400,
+.text-zinc-400,
+.text-neutral-400,
+.text-stone-400 {
+  color: rgb(75, 85, 99) !important; /* gray-600: 7.0:1 */
+}
+
+/* Dark mode equivalents that fail on dark backgrounds */
+.dark .text-gray-500,
+.dark .text-slate-500,
+.dark .text-zinc-500 {
+  color: rgb(156, 163, 175) !important; /* gray-400 on dark: 5.7:1 */
+}
+
+/* ── Link Distinguishability (WCAG 1.4.1) ── */
+
+/* Links in prose/content must be underlined */
+.prose a,
+article a,
+main p a,
+main li a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Spacing ── */
+
+/* Prevent adjacent small interactive elements from being too close */
+[class*="gap-1"] > a,
+[class*="gap-1"] > button {
+  min-height: 44px;
+}
+
+/* ── Readable Text Defaults ── */
+
+/* Tailwind's text-xs (12px) fails readability for body text */
+main .text-xs,
+article .text-xs {
+  font-size: 0.875rem; /* 14px minimum in content areas */
+}

@@ -1,0 +1,189 @@
+/**
+ * cbrowser-ui — Bootstrap 5 Accessibility Patch
+ *
+ * Add this AFTER bootstrap.min.css to fix CIF-failing components.
+ * Changes: touch targets, motion control, contrast, keyboard access.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="bootstrap.min.css">
+ *   <link rel="stylesheet" href="fix-bootstrap.css">
+ */
+
+/* ── Touch Targets (WCAG 2.5.5 / 2.5.8) ── */
+
+/* Buttons — enforce 44px minimum */
+.btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 1rem;
+}
+
+.btn-sm {
+  min-height: 44px;
+  padding: 0.375rem 0.75rem;
+}
+
+/* Nav links */
+.nav-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1rem;
+}
+
+.navbar-nav .nav-link {
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+}
+
+/* Dropdown items */
+.dropdown-item {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+/* Pagination */
+.page-link {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* List group items */
+.list-group-item-action {
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+}
+
+/* Breadcrumb links */
+.breadcrumb-item a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Close button */
+.btn-close {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.75rem;
+}
+
+/* Form controls */
+.form-control,
+.form-select {
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Checkboxes and radios — larger hit area */
+.form-check {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+}
+
+.form-check-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0;
+}
+
+/* ── Spacing Between Targets ── */
+
+.nav-item + .nav-item {
+  margin-left: 2px;
+}
+
+.btn + .btn {
+  margin-left: 4px;
+}
+
+/* ── Animation Control (WCAG 2.3.3) ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-item {
+    transition: none !important;
+  }
+
+  .carousel {
+    /* Stop auto-cycling */
+    --bs-carousel-interval: 0 !important;
+  }
+
+  .fade {
+    transition: none !important;
+  }
+
+  .collapse:not(.show) {
+    transition: none !important;
+  }
+
+  .collapsing {
+    transition: none !important;
+  }
+
+  .spinner-border,
+  .spinner-grow {
+    animation: none !important;
+  }
+
+  .progress-bar-animated {
+    animation: none !important;
+  }
+}
+
+/* Carousel must have visible pause control */
+.carousel-control-prev,
+.carousel-control-next {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ── Focus Visibility ── */
+
+*:focus-visible {
+  outline: 3px solid var(--bs-primary, #0d6efd) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
+}
+
+/* ── Contrast Fixes ── */
+
+/* Bootstrap's muted text fails AAA on white */
+.text-muted {
+  color: #495057 !important; /* 7.0:1 on white vs Bootstrap's #6c757d at 4.6:1 */
+}
+
+/* Badge contrast */
+.badge.bg-warning {
+  color: #000 !important;
+}
+
+.badge.bg-info {
+  color: #000 !important;
+}
+
+/* ── Link Distinguishability ── */
+
+/* Ensure links in content are underlined (WCAG 1.4.1) */
+p a, li a, td a, dd a {
+  text-decoration: underline;
+}
+
+/* ── Modal/Dialog Accessibility ── */
+
+.modal {
+  /* Prevent background scroll */
+  overscroll-behavior: contain;
+}
+
+.modal-dialog {
+  /* Ensure modal is keyboard-reachable */
+  outline: none;
+}

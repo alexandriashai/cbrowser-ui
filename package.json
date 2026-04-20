@@ -1,0 +1,60 @@
+{
+  "name": "cbrowser-ui",
+  "version": "0.1.0",
+  "description": "One CSS file. Your framework. Now accessible. Drop-in accessibility layer for Bootstrap, Tailwind, shadcn, Material — or use as a standalone framework.",
+  "main": "dist/cbrowser-ui.js",
+  "module": "dist/cbrowser-ui.mjs",
+  "types": "dist/cbrowser-ui.d.ts",
+  "style": "dist/cbrowser-ui.css",
+  "exports": {
+    ".": {
+      "import": "./dist/cbrowser-ui.mjs",
+      "require": "./dist/cbrowser-ui.js",
+      "types": "./dist/cbrowser-ui.d.ts"
+    },
+    "./css": "./dist/cbrowser-ui.css",
+    "./fix-bootstrap": "./dist/fix-bootstrap.css",
+    "./fix-tailwind": "./dist/fix-tailwind.css",
+    "./fix-shadcn": "./dist/fix-shadcn.css",
+    "./fix-material": "./dist/fix-material.css",
+    "./themes/*": "./dist/themes/*"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun run scripts/build.ts",
+    "build:css": "bun run scripts/build-css.ts",
+    "dev": "bun run --watch scripts/build.ts",
+    "lint": "biome check src/",
+    "test": "bun test"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "css",
+    "ui",
+    "framework",
+    "bootstrap",
+    "tailwind",
+    "shadcn",
+    "material",
+    "cif",
+    "cognitive",
+    "disability",
+    "inclusive-design"
+  ],
+  "author": "Alexandria Eden <alexandria.shai.eden@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexandriashai/cbrowser-ui"
+  },
+  "homepage": "https://playground.cbrowser.ai",
+  "devDependencies": {
+    "lightningcss": "^1.28.0"
+  }
+}
