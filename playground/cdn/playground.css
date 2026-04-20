@@ -156,12 +156,17 @@
   grid-template-columns: 220px 1fr;
   gap: 2rem;
   max-width: 100%;
-  overflow: hidden;
+}
+
+/* Grid children must not overflow their column */
+.pg-docs > * {
+  min-width: 0;
 }
 
 @media (max-width: 768px) {
   .pg-docs {
     grid-template-columns: 1fr;
+    padding-inline: var(--cui-spacing);
   }
   .pg-docs-sidebar {
     display: none;
