@@ -1,0 +1,50 @@
+{
+  "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+  "git": {
+    "commit": true,
+    "commitMessage": "chore: release v${version}",
+    "tag": true,
+    "tagName": "v${version}",
+    "tagAnnotation": "Release v${version}",
+    "push": true,
+    "requireBranch": "main",
+    "requireCleanWorkingDir": true,
+    "requireUpstream": true
+  },
+  "npm": {
+    "publish": true,
+    "publishPath": ".",
+    "publishArgs": ["--access", "public"]
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}",
+    "autoGenerate": true,
+    "draft": false,
+    "preRelease": false
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": {
+        "name": "conventionalcommits",
+        "types": [
+          { "type": "feat", "section": "Added" },
+          { "type": "fix", "section": "Fixed" },
+          { "type": "perf", "section": "Changed" },
+          { "type": "refactor", "section": "Changed" },
+          { "type": "docs", "section": "Documentation", "hidden": true },
+          { "type": "style", "section": "Changed", "hidden": true },
+          { "type": "test", "section": "Changed", "hidden": true },
+          { "type": "chore", "section": "Changed", "hidden": true }
+        ]
+      },
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog\n\nAll notable changes to cbrowser-ui.\n"
+    }
+  },
+  "hooks": {
+    "before:init": ["bun run build"],
+    "after:bump": "echo 'Version bumped to ${version}'",
+    "after:release": "echo 'Released cbrowser-ui v${version} to npm and GitHub'"
+  }
+}
