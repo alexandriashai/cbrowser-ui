@@ -34,6 +34,11 @@ writeFileSync(join(DIST, 'cbrowser-ui.min.css'), minCSS);
 writeFileSync(join(DIST, 'ui.min.css'), minCSS); // Short alias
 console.log(`  cbrowser-ui.css: ${(mainCSS.length / 1024).toFixed(1)}kb → ${(minCSS.length / 1024).toFixed(1)}kb min`);
 
+// 1b. Build playground CSS (separate — not part of the framework)
+const playgroundCSS = readFileSync(join(SRC, 'css', 'playground.css'), 'utf-8');
+writeFileSync(join(DIST, 'playground.css'), playgroundCSS);
+console.log(`  playground.css: ${(playgroundCSS.length / 1024).toFixed(1)}kb`);
+
 // 2. Copy patches
 console.log('[build] Copying patches...');
 const patches = readdirSync(join(SRC, 'patches')).filter(f => f.endsWith('.css'));
