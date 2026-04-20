@@ -17,6 +17,9 @@
     @media (max-width: 768px) { .docs-layout { grid-template-columns: 1fr; } }
 
     .docs-sidebar { position: sticky; top: 5rem; align-self: start; }
+    @media (max-width: 768px) {
+      .docs-sidebar { display: none; }
+    }
     .docs-sidebar a { display: block; padding: 0.5rem 0.75rem; min-height: 44px; display: flex; align-items: center; color: var(--cui-muted); text-decoration: none; font-size: 0.875rem; border-radius: var(--cui-radius); border-left: 3px solid transparent; }
     .docs-sidebar a:hover { color: var(--cui-fg); background: var(--cui-surface); }
     .docs-sidebar a.active { color: var(--cui-primary); border-left-color: var(--cui-primary); background: color-mix(in oklch, var(--cui-primary) 5%, transparent); font-weight: 600; }
@@ -32,7 +35,7 @@
     .preview-block { border: 1px solid var(--cui-border); border-radius: var(--cui-radius); overflow: hidden; margin: 1rem 0; }
     .preview-render { padding: 1.5rem; background: var(--cui-bg); }
     .preview-code { position: relative; }
-    .preview-code pre { margin: 0; padding: 1.25rem; background: #0f172a; color: #e2e8f0; font-size: 0.8125rem; line-height: 1.65; overflow-x: auto; border-radius: 0; }
+    .preview-code pre { margin: 0; padding: 1.25rem; background: #0f172a; color: #e2e8f0; font-size: 0.8125rem; line-height: 1.65; overflow-x: auto; border-radius: 0; max-width: 100%; }
     .preview-code .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; min-height: 44px; min-width: 44px; padding: 0.5rem 0.75rem; background: #334155; color: #e2e8f0; border: none; border-radius: var(--cui-radius); cursor: pointer; font-size: 0.75rem; }
     .preview-code .copy-btn:hover { background: #475569; }
 
