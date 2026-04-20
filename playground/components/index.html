@@ -18,6 +18,7 @@
 
     .docs-sidebar { position: sticky; top: 5rem; align-self: start; }
     @media (max-width: 768px) {
+      .docs-layout { grid-template-columns: 1fr !important; }
       .docs-sidebar { display: none; }
     }
     .docs-sidebar a { display: block; padding: 0.5rem 0.75rem; min-height: 44px; display: flex; align-items: center; color: var(--cui-muted); text-decoration: none; font-size: 0.875rem; border-radius: var(--cui-radius); border-left: 3px solid transparent; }
