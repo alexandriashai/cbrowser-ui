@@ -255,17 +255,32 @@ function createToast(message: string, container: HTMLElement, options: ToastOpti
 function autoInit() {
   // Focus traps: data-cui-trap
   document.querySelectorAll<HTMLElement>('[data-cui-trap]').forEach(el => {
+    const isDialog = el.tagName === 'DIALOG';
     const trap = new FocusTrap(el, {
-      onEscape: () => el.setAttribute('hidden', ''),
+      onEscape: () => {
+        if (isDialog) (el as HTMLDialogElement).close();
+        else el.setAttribute('hidden', '');
+      },
       returnFocus: true,
     });
-    // Observe visibility
-    const observer = new MutationObserver(() => {
+
+    if (isDialog) {
+      // For <dialog>, activate trap on showModal/show
+      const origShowModal = (el as HTMLDialogElement).showModal.bind(el);
+      (el as HTMLDialogElement).showModal = function() {
+        origShowModal();
+        trap.activate();
+      };
+      (el as HTMLDialogElement).addEventListener('close', () => trap.deactivate());
+    } else {
+      // For non-dialog, observe hidden attribute
+      const observer = new MutationObserver(() => {
+        if (!el.hidden) trap.activate();
+        else trap.deactivate();
+      });
+      observer.observe(el, { attributes: true, attributeFilter: ['hidden'] });
       if (!el.hidden) trap.activate();
-      else trap.deactivate();
-    });
-    observer.observe(el, { attributes: true, attributeFilter: ['hidden'] });
-    if (!el.hidden) trap.activate();
+    }
   });
 
   // Arrow nav: data-cui-arrows
@@ -280,6 +295,11 @@ function autoInit() {
     const nav = navId ? document.getElementById(navId) : null;
     if (!nav) return;
 
+    // Create backdrop element
+    const backdrop = document.createElement('div');
+    backdrop.className = 'cui-nav-backdrop';
+    document.body.appendChild(backdrop);
+
     const trap = new FocusTrap(nav, {
       onEscape: () => close(),
       returnFocus: true,
@@ -287,27 +307,27 @@ function autoInit() {
 
     function open() {
       nav!.setAttribute('data-open', 'true');
+      backdrop.setAttribute('data-open', 'true');
       toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
       trap.activate();
-      // Close on backdrop click
-      nav!.addEventListener('click', handleBackdropClick);
     }
 
     function close() {
       nav!.setAttribute('data-open', 'false');
+      backdrop.setAttribute('data-open', 'false');
       toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
       trap.deactivate();
-      nav!.removeEventListener('click', handleBackdropClick);
-    }
-
-    function handleBackdropClick(e: Event) {
-      if (e.target === nav) close(); // clicked the ::before backdrop area
     }
 
     toggle.addEventListener('click', () => {
       const isOpen = nav!.getAttribute('data-open') === 'true';
       isOpen ? close() : open();
     });
+
+    // Close on backdrop click
+    backdrop.addEventListener('click', () => close());
 
     // Close on nav link click (navigate)
     nav.querySelectorAll('a').forEach(link => {
