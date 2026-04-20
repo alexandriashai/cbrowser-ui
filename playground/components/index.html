@@ -8,50 +8,9 @@
   <link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css">
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
-    @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; --cui-gradient-start: #818cf8; --cui-gradient-end: #a78bfa; } }
-
-    /* Component docs layout */
-    .docs-layout { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; max-width: 100%; overflow: hidden; }
-    @media (max-width: 768px) { .docs-layout { grid-template-columns: 1fr; } }
-
-    .docs-sidebar { position: sticky; top: 5rem; align-self: start; }
-    @media (max-width: 768px) {
-      .docs-layout { grid-template-columns: 1fr !important; }
-      .docs-sidebar { display: none; }
-    }
-    .docs-sidebar a { display: block; padding: 0.5rem 0.75rem; min-height: 44px; display: flex; align-items: center; color: var(--cui-muted); text-decoration: none; font-size: 0.875rem; border-radius: var(--cui-radius); border-left: 3px solid transparent; }
-    .docs-sidebar a:hover { color: var(--cui-fg); background: var(--cui-surface); }
-    .docs-sidebar a.active { color: var(--cui-primary); border-left-color: var(--cui-primary); background: color-mix(in oklch, var(--cui-primary) 5%, transparent); font-weight: 600; }
-    .docs-sidebar h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cui-muted); padding: 1rem 0.75rem 0.25rem; margin: 0; }
-
-    /* Component section */
-    .component-section { padding: 2.5rem 0; border-bottom: 1px solid var(--cui-border); }
-    .component-section:last-child { border-bottom: none; }
-    .component-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .component-desc { color: var(--cui-muted); margin-bottom: 1.5rem; max-width: 60ch; }
-
-    /* Live preview + code */
-    .preview-block { border: 1px solid var(--cui-border); border-radius: var(--cui-radius); overflow: hidden; margin: 1rem 0; max-width: 100%; }
-    .preview-render { padding: 1.5rem; background: var(--cui-bg); }
-    .preview-code { position: relative; }
-    .preview-code pre { margin: 0; padding: 1.25rem; background: #0f172a; color: #e2e8f0; font-size: 0.8125rem; line-height: 1.65; overflow-x: auto; border-radius: 0; max-width: 100%; }
-    .preview-code .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; min-height: 44px; min-width: 44px; padding: 0.5rem 0.75rem; background: #334155; color: #e2e8f0; border: none; border-radius: var(--cui-radius); cursor: pointer; font-size: 0.75rem; }
-    .preview-code .copy-btn:hover { background: #475569; }
-
-    .preview-toggle { display: flex; border-top: 1px solid var(--cui-border); }
-    .preview-toggle button { flex: 1; min-height: 44px; background: var(--cui-surface); border: none; cursor: pointer; font-size: 0.8125rem; font-weight: 500; color: var(--cui-muted); }
-    .preview-toggle button:hover { color: var(--cui-fg); }
-    .preview-toggle button.active { color: var(--cui-primary); background: var(--cui-bg); }
-
-    /* Variant grid */
-    .variant-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
-    .prop-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1rem 0; }
-    .prop-table th { text-align: left; padding: 0.5rem 0.75rem; background: var(--cui-surface); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .prop-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--cui-border); }
-    .prop-table code { font-size: 0.8125rem; padding: 0.125em 0.375em; background: var(--cui-surface); border-radius: 3px; }
-  </style>
+  <link rel="stylesheet" href="/cdn/playground.css">
+  <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
+  @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; } }</style>
 </head>
 <body>
   <a href="#main" class="cui-skip-link">Skip to main content</a>
@@ -75,10 +34,10 @@
   </header>
 
   <main id="main" class="cui-container-lg" style="padding-block: 2rem;">
-    <div class="docs-layout">
+    <div class="pg-docs">
 
       <!-- Sidebar -->
-      <aside class="docs-sidebar" aria-label="Component navigation">
+      <aside class="pg-docs-sidebar" aria-label="Component navigation">
         <h4>General</h4>
         <a href="#buttons" class="active">Buttons</a>
         <a href="#badges">Badges</a>
@@ -111,24 +70,24 @@
       <!-- Content -->
       <div>
         <h1 style="margin-bottom: 0.5rem;">Components</h1>
-        <p class="component-desc" style="margin-bottom: 2rem;">Every component with live preview and copy-paste code. All score 100 on CIF accessibility.</p>
+        <p class="pg-component-desc" style="margin-bottom: 2rem;">Every component with live preview and copy-paste code. All score 100 on CIF accessibility.</p>
 
         <!-- BUTTONS -->
-        <section id="buttons" class="component-section">
-          <h2 class="component-title">Buttons</h2>
-          <p class="component-desc">Four variants. All 44px minimum touch target. All keyboard accessible with visible focus ring.</p>
+        <section id="buttons" class="pg-component">
+          <h2 class="pg-component-title">Buttons</h2>
+          <p class="pg-component-desc">Four variants. All 44px minimum touch target. All keyboard accessible with visible focus ring.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
-              <div class="variant-grid">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
+              <div class="pg-variants">
                 <button class="cui-btn">Primary</button>
                 <button class="cui-btn cui-btn-secondary">Secondary</button>
                 <button class="cui-btn cui-btn-destructive">Destructive</button>
                 <button class="cui-btn cui-btn-ghost">Ghost</button>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;button class="cui-btn"&gt;Primary&lt;/button&gt;
 &lt;button class="cui-btn cui-btn-secondary"&gt;Secondary&lt;/button&gt;
 &lt;button class="cui-btn cui-btn-destructive"&gt;Destructive&lt;/button&gt;
@@ -137,22 +96,22 @@
           </div>
 
           <h3>As links</h3>
-          <div class="preview-block">
-            <div class="preview-render">
-              <div class="variant-grid">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
+              <div class="pg-variants">
                 <a href="#" class="cui-btn">Link as button</a>
                 <a href="#" class="cui-btn cui-btn-secondary">Secondary link</a>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;a href="/signup" class="cui-btn"&gt;Link as button&lt;/a&gt;
 &lt;a href="/learn" class="cui-btn cui-btn-secondary"&gt;Secondary link&lt;/a&gt;</code></pre>
             </div>
           </div>
 
           <h3>CSS Classes</h3>
-          <table class="prop-table">
+          <table class="pg-props">
             <thead><tr><th>Class</th><th>Description</th></tr></thead>
             <tbody>
               <tr><td><code>.cui-btn</code></td><td>Primary button — solid background, white text</td></tr>
@@ -165,21 +124,21 @@
         </section>
 
         <!-- BADGES -->
-        <section id="badges" class="component-section">
-          <h2 class="component-title">Badges</h2>
-          <p class="component-desc">Inline labels for status, categories, and counts. All meet contrast requirements.</p>
+        <section id="badges" class="pg-component">
+          <h2 class="pg-component-title">Badges</h2>
+          <p class="pg-component-desc">Inline labels for status, categories, and counts. All meet contrast requirements.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
-              <div class="variant-grid">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
+              <div class="pg-variants">
                 <span class="cui-badge">Default</span>
                 <span class="cui-badge cui-badge-primary">Primary</span>
                 <span class="cui-badge cui-badge-success">Success</span>
                 <span class="cui-badge cui-badge-destructive">Error</span>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;span class="cui-badge"&gt;Default&lt;/span&gt;
 &lt;span class="cui-badge cui-badge-primary"&gt;Primary&lt;/span&gt;
 &lt;span class="cui-badge cui-badge-success"&gt;Success&lt;/span&gt;
@@ -189,12 +148,12 @@
         </section>
 
         <!-- ALERTS -->
-        <section id="alerts" class="component-section">
-          <h2 class="component-title">Alerts</h2>
-          <p class="component-desc">Contextual feedback messages. Use <code>role="alert"</code> for screen reader announcement.</p>
+        <section id="alerts" class="pg-component">
+          <h2 class="pg-component-title">Alerts</h2>
+          <p class="pg-component-desc">Contextual feedback messages. Use <code>role="alert"</code> for screen reader announcement.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
               <div class="cui-stack">
                 <div class="cui-alert cui-alert-info" role="alert"><strong>Info:</strong> Your session will expire in 5 minutes.</div>
                 <div class="cui-alert cui-alert-success" role="alert"><strong>Success:</strong> Your profile has been updated.</div>
@@ -202,8 +161,8 @@
                 <div class="cui-alert cui-alert-error" role="alert"><strong>Error:</strong> Payment could not be processed.</div>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;div class="cui-alert cui-alert-info" role="alert"&gt;
   &lt;strong&gt;Info:&lt;/strong&gt; Your session will expire in 5 minutes.
 &lt;/div&gt;
@@ -224,12 +183,12 @@
         </section>
 
         <!-- INPUTS -->
-        <section id="inputs" class="component-section">
-          <h2 class="component-title">Inputs</h2>
-          <p class="component-desc">Form inputs with labels, hints, and error states. All 44px minimum height.</p>
+        <section id="inputs" class="pg-component">
+          <h2 class="pg-component-title">Inputs</h2>
+          <p class="pg-component-desc">Form inputs with labels, hints, and error states. All 44px minimum height.</p>
 
-          <div class="preview-block">
-            <div class="preview-render" style="max-width: 24rem;">
+          <div class="pg-preview">
+            <div class="pg-preview-render" style="max-width: 24rem;">
               <div class="cui-stack">
                 <div>
                   <label for="ex-name">Full name</label>
@@ -251,8 +210,8 @@
                 </div>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;div&gt;
   &lt;label for="name"&gt;Full name&lt;/label&gt;
   &lt;input type="text" id="name" placeholder="Jane Smith"&gt;
@@ -270,12 +229,12 @@
         </section>
 
         <!-- CHECKBOX & RADIO -->
-        <section id="checkbox" class="component-section">
-          <h2 class="component-title">Checkbox &amp; Radio</h2>
-          <p class="component-desc">44px hit area via label wrapping. No extra markup needed.</p>
+        <section id="checkbox" class="pg-component">
+          <h2 class="pg-component-title">Checkbox &amp; Radio</h2>
+          <p class="pg-component-desc">44px hit area via label wrapping. No extra markup needed.</p>
 
-          <div class="preview-block">
-            <div class="preview-render" style="max-width: 24rem;">
+          <div class="pg-preview">
+            <div class="pg-preview-render" style="max-width: 24rem;">
               <div class="cui-stack cui-gap-sm">
                 <label><input type="checkbox" checked> Receive email updates</label>
                 <label><input type="checkbox"> Accept terms and conditions</label>
@@ -285,8 +244,8 @@
                 <label><input type="radio" name="plan"> Enterprise — Contact us</label>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;label&gt;&lt;input type="checkbox" checked&gt; Receive email updates&lt;/label&gt;
 &lt;label&gt;&lt;input type="checkbox"&gt; Accept terms&lt;/label&gt;
 
@@ -297,12 +256,12 @@
         </section>
 
         <!-- CARDS -->
-        <section id="cards" class="component-section">
-          <h2 class="component-title">Cards</h2>
-          <p class="component-desc">Content containers with elevation variants. Hover lifts with shadow.</p>
+        <section id="cards" class="pg-component">
+          <h2 class="pg-component-title">Cards</h2>
+          <p class="pg-component-desc">Content containers with elevation variants. Hover lifts with shadow.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 1rem;">
                 <div class="cui-card">
                   <h3 style="margin-top: 0;">Default</h3>
@@ -318,8 +277,8 @@
                 </div>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;div class="cui-card"&gt;Default card&lt;/div&gt;
 &lt;div class="cui-card cui-card-elevated"&gt;Elevated card&lt;/div&gt;
 &lt;div class="cui-card cui-card-highlight"&gt;Highlighted card&lt;/div&gt;</code></pre>
@@ -328,12 +287,12 @@
         </section>
 
         <!-- TABLE -->
-        <section id="table" class="component-section">
-          <h2 class="component-title">Table</h2>
-          <p class="component-desc">Responsive data table with hover rows and sticky headers. Wrap in <code>.cui-table-wrapper</code> for horizontal scroll.</p>
+        <section id="table" class="pg-component">
+          <h2 class="pg-component-title">Table</h2>
+          <p class="pg-component-desc">Responsive data table with hover rows and sticky headers. Wrap in <code>.cui-table-wrapper</code> for horizontal scroll.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
               <div class="cui-table-wrapper">
                 <table class="cui-table">
                   <thead><tr><th>Name</th><th>Role</th><th>Status</th><th>Score</th></tr></thead>
@@ -346,8 +305,8 @@
                 </table>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;div class="cui-table-wrapper"&gt;
   &lt;table class="cui-table"&gt;
     &lt;thead&gt;
@@ -367,12 +326,12 @@
         </section>
 
         <!-- ACCORDION -->
-        <section id="accordion" class="component-section">
-          <h2 class="component-title">Accordion</h2>
-          <p class="component-desc">Uses native <code>&lt;details&gt;</code> — works without JavaScript. Keyboard accessible. 44px trigger.</p>
+        <section id="accordion" class="pg-component">
+          <h2 class="pg-component-title">Accordion</h2>
+          <p class="pg-component-desc">Uses native <code>&lt;details&gt;</code> — works without JavaScript. Keyboard accessible. 44px trigger.</p>
 
-          <div class="preview-block">
-            <div class="preview-render" style="max-width: 32rem;">
+          <div class="pg-preview">
+            <div class="pg-preview-render" style="max-width: 32rem;">
               <details class="cui-accordion" open>
                 <summary>How do I install cbrowser-ui?</summary>
                 <p>Add one link tag: <code>&lt;link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css"&gt;</code> — or install via npm with <code>npm install cbrowser-ui</code>.</p>
@@ -386,8 +345,8 @@
                 <p>Override any of the 20 CSS custom properties. Every <code>--cui-*</code> variable changes the entire theme. The playground's theme editor (coming soon) will enforce contrast accessibility as you pick colors.</p>
               </details>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;details class="cui-accordion" open&gt;
   &lt;summary&gt;How do I install cbrowser-ui?&lt;/summary&gt;
   &lt;p&gt;Add one link tag or install via npm.&lt;/p&gt;
@@ -401,12 +360,12 @@
         </section>
 
         <!-- DIALOG -->
-        <section id="dialog" class="component-section">
-          <h2 class="component-title">Dialog / Modal</h2>
-          <p class="component-desc">Native <code>&lt;dialog&gt;</code> with focus trap, ESC to close, and backdrop. Add <code>data-cui-trap</code> for automatic focus management.</p>
+        <section id="dialog" class="pg-component">
+          <h2 class="pg-component-title">Dialog / Modal</h2>
+          <p class="pg-component-desc">Native <code>&lt;dialog&gt;</code> with focus trap, ESC to close, and backdrop. Add <code>data-cui-trap</code> for automatic focus management.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
               <button class="cui-btn" onclick="document.getElementById('demo-dialog').showModal()">Open Dialog</button>
 
               <dialog id="demo-dialog" class="cui-dialog">
@@ -422,8 +381,8 @@
                 </div>
               </dialog>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;button class="cui-btn" onclick="document.getElementById('my-dialog').showModal()"&gt;
   Open Dialog
 &lt;/button&gt;
@@ -445,12 +404,12 @@
         </section>
 
         <!-- PROGRESS -->
-        <section id="progress" class="component-section">
-          <h2 class="component-title">Progress</h2>
-          <p class="component-desc">Accessible progress bar with ARIA attributes.</p>
+        <section id="progress" class="pg-component">
+          <h2 class="pg-component-title">Progress</h2>
+          <p class="pg-component-desc">Accessible progress bar with ARIA attributes.</p>
 
-          <div class="preview-block">
-            <div class="preview-render" style="max-width: 24rem;">
+          <div class="pg-preview">
+            <div class="pg-preview-render" style="max-width: 24rem;">
               <div class="cui-stack">
                 <div>
                   <p class="cui-text-sm cui-font-bold">Upload progress</p>
@@ -468,8 +427,8 @@
                 </div>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;div class="cui-progress" role="progressbar"
      aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"
      aria-label="Upload progress: 72%"&gt;
@@ -480,12 +439,12 @@
         </section>
 
         <!-- NAV -->
-        <section id="nav" class="component-section">
-          <h2 class="component-title">Navigation</h2>
-          <p class="component-desc">Vertical and horizontal nav with <code>aria-current</code> for active state. 44px touch targets.</p>
+        <section id="nav" class="pg-component">
+          <h2 class="pg-component-title">Navigation</h2>
+          <p class="pg-component-desc">Vertical and horizontal nav with <code>aria-current</code> for active state. 44px touch targets.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 1.5rem;">
                 <div>
                   <p class="cui-text-sm cui-font-bold" style="margin-bottom: 0.5rem;">Vertical</p>
@@ -507,8 +466,8 @@
                 </div>
               </div>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;nav aria-label="Main" class="cui-nav"&gt;
   &lt;a href="/" aria-current="page"&gt;Dashboard&lt;/a&gt;
   &lt;a href="/analytics"&gt;Analytics&lt;/a&gt;
@@ -519,12 +478,12 @@
         </section>
 
         <!-- BREADCRUMB -->
-        <section id="breadcrumb" class="component-section">
-          <h2 class="component-title">Breadcrumbs</h2>
-          <p class="component-desc">Wrap in <code>&lt;nav aria-label="Breadcrumb"&gt;</code>. Current page uses <code>aria-current</code>.</p>
+        <section id="breadcrumb" class="pg-component">
+          <h2 class="pg-component-title">Breadcrumbs</h2>
+          <p class="pg-component-desc">Wrap in <code>&lt;nav aria-label="Breadcrumb"&gt;</code>. Current page uses <code>aria-current</code>.</p>
 
-          <div class="preview-block">
-            <div class="preview-render">
+          <div class="pg-preview">
+            <div class="pg-preview-render">
               <nav aria-label="Breadcrumb">
                 <ol class="cui-breadcrumb">
                   <li><a href="#">Home</a></li>
@@ -534,8 +493,8 @@
                 </ol>
               </nav>
             </div>
-            <div class="preview-code">
-              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.preview-code').querySelector('code').textContent)">Copy</button>
+            <div class="pg-preview-code">
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
               <pre><code>&lt;nav aria-label="Breadcrumb"&gt;
   &lt;ol class="cui-breadcrumb"&gt;
     &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
