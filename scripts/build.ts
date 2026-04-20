@@ -21,6 +21,7 @@ const mainCSS = cssFiles
   .map(f => readFileSync(join(SRC, 'css', f), 'utf-8'))
   .join('\n\n');
 writeFileSync(join(DIST, 'cbrowser-ui.css'), mainCSS);
+writeFileSync(join(DIST, 'ui.css'), mainCSS); // Short alias
 
 // Minified version
 const minCSS = mainCSS
@@ -30,6 +31,7 @@ const minCSS = mainCSS
   .replace(/;}/g, '}')             // remove last semicolons
   .trim();
 writeFileSync(join(DIST, 'cbrowser-ui.min.css'), minCSS);
+writeFileSync(join(DIST, 'ui.min.css'), minCSS); // Short alias
 console.log(`  cbrowser-ui.css: ${(mainCSS.length / 1024).toFixed(1)}kb → ${(minCSS.length / 1024).toFixed(1)}kb min`);
 
 // 2. Copy patches
@@ -70,6 +72,10 @@ if (!cjsResult.success) {
   console.error('[build] CJS build failed:', cjsResult.logs);
   process.exit(1);
 }
+
+// Copy short aliases for JS
+copyFileSync(join(DIST, 'cbrowser-ui.mjs'), join(DIST, 'ui.mjs'));
+copyFileSync(join(DIST, 'cbrowser-ui.js'), join(DIST, 'ui.js'));
 
 // Generate type declaration stub
 const dts = `/**
