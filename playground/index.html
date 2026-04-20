@@ -8,26 +8,14 @@
   <link rel="stylesheet" href="/cdn/cbrowser-ui.css">
   <script type="module" src="/cdn/cbrowser-ui.mjs"></script>
   <style>
-    /* Playground-specific overrides */
-    .hero {
-      padding: 4rem 0;
-      text-align: center;
-      background: var(--cui-surface);
-      border-bottom: 1px solid var(--cui-border);
-    }
-    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-    .hero .subtitle { font-size: 1.25rem; color: var(--cui-muted); max-width: 50ch; margin: 0 auto 2rem; }
+    /* Playground-specific */
     .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; }
-    .code-inline { background: var(--cui-surface); padding: 0.125em 0.5em; border-radius: 4px; font-family: var(--cui-font-mono); font-size: 0.875em; }
-    .tabs { border-bottom: 2px solid var(--cui-border); margin-bottom: 2rem; }
-    .tabs button { min-height: 44px; padding: 0.75rem 1.5rem; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: 500; color: var(--cui-muted); margin-bottom: -2px; }
-    .tabs button[aria-selected="true"] { color: var(--cui-primary); border-bottom-color: var(--cui-primary); }
-    .patch-preview { background: var(--cui-surface); border-radius: var(--cui-radius); padding: 2rem; margin: 1rem 0; }
     .score-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1rem; border-radius: 100px; font-weight: 600; font-size: 0.875rem; }
     .score-badge.good { background: #dcfce7; color: #166534; }
     .score-badge.bad { background: #fee2e2; color: #991b1b; }
     .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     @media (max-width: 640px) { .before-after { grid-template-columns: 1fr; } }
+    .feature-icon { width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: var(--cui-radius); background: color-mix(in oklch, var(--cui-primary) 10%, var(--cui-bg)); color: var(--cui-primary); font-size: 1.25rem; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -49,20 +37,21 @@
   </header>
 
   <!-- Hero -->
-  <section class="hero">
-    <div class="cui-container">
-      <h1>One CSS file.<br>Your framework.<br>Now accessible.</h1>
-      <p class="subtitle">
+  <section class="cui-section cui-hero-gradient" style="padding-top: 5rem; padding-bottom: 5rem;">
+    <div class="cui-container" style="text-align: center;">
+      <p class="cui-badge cui-badge-primary" style="margin: 0 auto 1.5rem;">19.7kb · Zero dependencies · WCAG AAA</p>
+      <h1 class="cui-display">One CSS file.<br><span class="cui-gradient-text">Now accessible.</span></h1>
+      <p class="cui-lead" style="margin: 1.5rem auto 2.5rem; text-align: center;">
         Drop-in accessibility patches for Bootstrap, Tailwind, shadcn, and Material.
-        Or use standalone as the CSS framework that was born accessible.
+        Or use standalone as the CSS framework that was born accessible and beautiful.
       </p>
       <div class="cui-row" style="justify-content: center; gap: 1rem;">
-        <a href="#get-started" class="cui-btn">Get Started</a>
+        <a href="#get-started" class="cui-btn cui-glow">Get Started</a>
         <a href="#patches" class="cui-btn cui-btn-secondary">See Framework Patches</a>
       </div>
-      <p style="margin-top: 2rem;">
-        <span class="score-badge good">CIF Score: 100</span>
-        <span class="cui-text-muted cui-text-sm" style="margin-left: 0.5rem;">This page scores perfect on every dimension.</span>
+      <p style="margin-top: 2.5rem;">
+        <span class="score-badge good">✓ CIF Score: 100</span>
+        <span class="cui-text-muted cui-text-sm" style="margin-left: 0.75rem;">This entire page scores perfect accessibility.</span>
       </p>
     </div>
   </section>
