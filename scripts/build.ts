@@ -82,6 +82,22 @@ if (!cjsResult.success) {
 copyFileSync(join(DIST, 'cbrowser-ui.mjs'), join(DIST, 'ui.mjs'));
 copyFileSync(join(DIST, 'cbrowser-ui.js'), join(DIST, 'ui.js'));
 
+// 4. Build a11y widget (self-contained, IIFE)
+console.log('[build] Bundling a11y widget...');
+const widgetResult = await Bun.build({
+  entrypoints: [join(SRC, 'js', 'a11y-widget.ts')],
+  outdir: DIST,
+  format: 'iife',
+  minify: true,
+  naming: 'a11y-widget.js',
+});
+if (!widgetResult.success) {
+  console.error('[build] a11y widget build failed:', widgetResult.logs);
+} else {
+  const size = readFileSync(join(DIST, 'a11y-widget.js')).length;
+  console.log(`  a11y-widget.js: ${(size / 1024).toFixed(1)}kb`);
+}
+
 // Generate type declaration stub
 const dts = `/**
  * cbrowser-ui — Accessibility runtime
