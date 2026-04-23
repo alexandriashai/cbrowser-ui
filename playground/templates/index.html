@@ -10,26 +10,46 @@
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
-  @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; } }</style>
+  @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; } }
+  [id], h1, h2, h3, h4, h5, h6 { scroll-margin-top: 80px; }
+  .cui-nav-backdrop { pointer-events: none; }
+  .cui-nav-backdrop[aria-hidden="false"], .cui-header.cui-header-open .cui-nav-backdrop { pointer-events: auto; }</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Templates — cbrowser-ui",
+    "url": "https://playground.cbrowser.ai/templates/",
+    "description": "Accessible page templates you can copy. Landing page, blog, dashboard, pricing, login — all score 100 on CIF."
+  }
+  </script>
 </head>
 <body>
-  <a href="#main" class="cui-skip-link">Skip to main content</a>
+  <a href="#main" class="cui-skip-link" data-testid="skip-to-main">Skip to main content</a>
 
   <header class="cui-header">
     <div class="cui-container-lg cui-row" style="margin: 0 auto; width: 100%;">
-      <a href="/" class="cui-header-logo" style="margin-right: auto;"><span class="cui-gradient-text" style="font-size: 1.25rem;">cbrowser-ui</span></a>
+      <a href="/" class="cui-header-logo" style="margin-right: auto;" data-testid="site-logo"><span class="cui-gradient-text" style="font-size: 1.25rem;">cbrowser-ui</span></a>
       <nav class="cui-header-nav" id="main-nav" aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="/getting-started/">Get Started</a>
-        <a href="/components/">Components</a>
-        <a href="/templates/" aria-current="page">Templates</a>
-        <a href="https://github.com/alexandriashai/cbrowser-ui" target="_blank" rel="noopener">GitHub</a>
+        <a href="/" data-testid="nav-home">Home</a>
+        <a href="/getting-started/" data-testid="nav-get-started">Get Started</a>
+        <a href="/components/" data-testid="nav-components">Components</a>
+        <a href="/templates/" aria-current="page" data-testid="nav-templates">Templates</a>
+        <a href="https://github.com/alexandriashai/cbrowser-ui" target="_blank" rel="noopener" data-testid="nav-github">GitHub</a>
       </nav>
-      <button class="cui-header-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">
+      <button class="cui-header-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu" data-testid="menu-toggle">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </header>
+
+  <nav aria-label="Breadcrumb" data-testid="breadcrumb">
+    <ol style="list-style: none; display: flex; gap: 0.5rem; padding: 0.75rem 0; margin: 0; font-size: 0.875rem;" class="cui-container">
+      <li><a href="/" data-testid="breadcrumb-home">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page">Templates</li>
+    </ol>
+  </nav>
 
   <main id="main">
     <section class="cui-section">
@@ -69,8 +89,8 @@
               <p>Hero section, feature grid, testimonials, pricing, and CTA. The complete marketing page.</p>
             </div>
             <div class="pg-template-actions">
-              <a href="/templates/landing.html" class="cui-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Preview</a>
-              <a href="https://github.com/alexandriashai/cbrowser-ui/blob/main/playground/templates/landing.html" class="cui-btn cui-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;" target="_blank" rel="noopener">View Code</a>
+              <a href="/templates/landing.html" class="cui-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;" data-testid="template-landing-preview">Preview</a>
+              <a href="https://github.com/alexandriashai/cbrowser-ui/blob/main/playground/templates/landing.html" class="cui-btn cui-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;" target="_blank" rel="noopener" data-testid="template-landing-code">View Code</a>
             </div>
           </div>
 
@@ -99,8 +119,8 @@
               <p>Article layout with readable typography, table of contents, author info, and related posts.</p>
             </div>
             <div class="pg-template-actions">
-              <a href="/templates/blog.html" class="cui-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Preview</a>
-              <a href="https://github.com/alexandriashai/cbrowser-ui/blob/main/playground/templates/blog.html" class="cui-btn cui-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;" target="_blank" rel="noopener">View Code</a>
+              <a href="/templates/blog.html" class="cui-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;" data-testid="template-blog-preview">Preview</a>
+              <a href="https://github.com/alexandriashai/cbrowser-ui/blob/main/playground/templates/blog.html" class="cui-btn cui-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;" target="_blank" rel="noopener" data-testid="template-blog-code">View Code</a>
             </div>
           </div>
 
@@ -215,7 +235,7 @@
         <!-- CTA -->
         <div style="text-align: center; padding: 2rem 0;">
           <p class="cui-text-muted">All templates use the same 20 CSS variables. Theme once, apply everywhere.</p>
-          <a href="/getting-started/" class="cui-btn cui-btn-secondary" style="margin-top: 1rem;">Learn how to customize →</a>
+          <a href="/getting-started/" class="cui-btn cui-btn-secondary" style="margin-top: 1rem;" data-testid="cta-get-started">Learn how to customize &#8594;</a>
         </div>
       </div>
     </section>
@@ -223,7 +243,7 @@
 
   <footer aria-label="Site footer" style="border-top: 1px solid var(--cui-border);">
     <div class="cui-container" style="padding: 2rem 0;">
-      <p class="cui-text-sm cui-text-muted"><strong class="cui-gradient-text">cbrowser-ui</strong> · MIT License · Built by <a href="https://cbrowser.ai">CBrowser</a></p>
+      <p class="cui-text-sm cui-text-muted"><strong class="cui-gradient-text">cbrowser-ui</strong> · MIT License · Built by <a href="https://cbrowser.ai" data-testid="footer-cbrowser">CBrowser</a></p>
     </div>
   </footer>
 </body>

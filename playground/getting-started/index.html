@@ -10,26 +10,46 @@
   <link rel="stylesheet" href="/cdn/playground.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
-  @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; } }</style>
+  @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; } }
+  [id], h1, h2, h3, h4, h5, h6 { scroll-margin-top: 80px; }
+  .cui-nav-backdrop { pointer-events: none; }
+  .cui-nav-backdrop[aria-hidden="false"], .cui-header.cui-header-open .cui-nav-backdrop { pointer-events: auto; }</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Getting Started — cbrowser-ui",
+    "url": "https://playground.cbrowser.ai/getting-started/",
+    "description": "Install cbrowser-ui in 30 seconds. CDN, npm, or framework patch."
+  }
+  </script>
 </head>
 <body>
-  <a href="#main" class="cui-skip-link">Skip to main content</a>
+  <a href="#main" class="cui-skip-link" data-testid="skip-to-main">Skip to main content</a>
 
   <header class="cui-header">
     <div class="cui-container-lg cui-row" style="margin: 0 auto; width: 100%;">
-      <a href="/" class="cui-header-logo" style="margin-right: auto;"><span class="cui-gradient-text" style="font-size: 1.25rem;">cbrowser-ui</span></a>
+      <a href="/" class="cui-header-logo" style="margin-right: auto;" data-testid="site-logo"><span class="cui-gradient-text" style="font-size: 1.25rem;">cbrowser-ui</span></a>
       <nav class="cui-header-nav" id="main-nav" aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="/getting-started/" aria-current="page">Get Started</a>
-        <a href="/components/">Components</a>
-        <a href="/templates/">Templates</a>
-        <a href="https://github.com/alexandriashai/cbrowser-ui" target="_blank" rel="noopener">GitHub</a>
+        <a href="/" data-testid="nav-home">Home</a>
+        <a href="/getting-started/" aria-current="page" data-testid="nav-get-started">Get Started</a>
+        <a href="/components/" data-testid="nav-components">Components</a>
+        <a href="/templates/" data-testid="nav-templates">Templates</a>
+        <a href="https://github.com/alexandriashai/cbrowser-ui" target="_blank" rel="noopener" data-testid="nav-github">GitHub</a>
       </nav>
-      <button class="cui-header-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu">
+      <button class="cui-header-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open menu" data-testid="menu-toggle">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </header>
+
+  <nav aria-label="Breadcrumb" data-testid="breadcrumb">
+    <ol style="list-style: none; display: flex; gap: 0.5rem; padding: 0.75rem 0; margin: 0; font-size: 0.875rem;" class="cui-container">
+      <li><a href="/" data-testid="breadcrumb-home">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page">Getting Started</li>
+    </ol>
+  </nav>
 
   <main id="main">
     <section class="cui-section">
@@ -234,8 +254,8 @@
           <h2>Ready to build?</h2>
           <p class="cui-text-muted" style="margin-bottom: 1.5rem;">Browse all the components or start from a template.</p>
           <div class="cui-row" style="justify-content: center; gap: 1rem;">
-            <a href="/components/" class="cui-btn">Browse Components</a>
-            <a href="/templates/" class="cui-btn cui-btn-secondary">See Templates</a>
+            <a href="/components/" class="cui-btn" data-testid="cta-components">Browse Components</a>
+            <a href="/templates/" class="cui-btn cui-btn-secondary" data-testid="cta-templates">See Templates</a>
           </div>
         </div>
       </div>
@@ -244,7 +264,7 @@
 
   <footer aria-label="Site footer" style="border-top: 1px solid var(--cui-border);">
     <div class="cui-container" style="padding: 2rem 0;">
-      <p class="cui-text-sm cui-text-muted"><strong class="cui-gradient-text">cbrowser-ui</strong> · MIT License · Built by <a href="https://cbrowser.ai">CBrowser</a></p>
+      <p class="cui-text-sm cui-text-muted"><strong class="cui-gradient-text">cbrowser-ui</strong> · MIT License · Built by <a href="https://cbrowser.ai" data-testid="footer-cbrowser">CBrowser</a></p>
     </div>
   </footer>
 </body>
