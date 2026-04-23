@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Templates — cbrowser-ui</title>
   <meta name="description" content="Accessible page templates you can copy. Landing page, blog, dashboard, pricing, login — all score 100 on CIF.">
+  <meta property="og:title" content="Templates — cbrowser-ui">
+  <meta property="og:description" content="Ready-to-use accessible page templates. Copy the HTML, add your content.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://playground.cbrowser.ai/templates/">
+  <meta property="og:image" content="https://cbrowser.ai/og/cbrowser-ui.png">
   <link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css">
   <link rel="stylesheet" href="/cdn/playground.css">
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
@@ -12,8 +17,8 @@
   <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
   @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; } }
   [id], h1, h2, h3, h4, h5, h6 { scroll-margin-top: 80px; }
-  .cui-nav-backdrop { pointer-events: none; }
-  .cui-nav-backdrop[aria-hidden="false"], .cui-header.cui-header-open .cui-nav-backdrop { pointer-events: auto; }</style>
+  .cui-nav-backdrop { pointer-events: none !important; display: none !important; position: static !important; width: 0 !important; height: 0 !important; z-index: -1 !important; }
+  .cui-header.cui-header-open .cui-nav-backdrop { display: block !important; position: fixed !important; width: 100% !important; height: 100% !important; z-index: 9998 !important; pointer-events: auto !important; }</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -85,7 +90,7 @@
               </div>
             </div>
             <div class="pg-template-info">
-              <h3>Landing Page</h3>
+              <h2>Landing Page</h2>
               <p>Hero section, feature grid, testimonials, pricing, and CTA. The complete marketing page.</p>
             </div>
             <div class="pg-template-actions">
@@ -115,7 +120,7 @@
               </div>
             </div>
             <div class="pg-template-info">
-              <h3>Blog Post</h3>
+              <h2>Blog Post</h2>
               <p>Article layout with readable typography, table of contents, author info, and related posts.</p>
             </div>
             <div class="pg-template-actions">
@@ -153,7 +158,7 @@
               </div>
             </div>
             <div class="pg-template-info">
-              <h3>Dashboard</h3>
+              <h2>Dashboard</h2>
               <p>Sidebar navigation, stat cards, data table, and chart placeholders. Admin panel starter.</p>
             </div>
             <div class="pg-template-actions">
@@ -177,7 +182,7 @@
               </div>
             </div>
             <div class="pg-template-info">
-              <h3>Pricing Page</h3>
+              <h2>Pricing Page</h2>
               <p>Three-tier pricing with feature comparison, toggle for monthly/annual, and FAQ accordion.</p>
             </div>
             <div class="pg-template-actions">
@@ -201,7 +206,7 @@
               </div>
             </div>
             <div class="pg-template-info">
-              <h3>Login / Register</h3>
+              <h2>Login / Register</h2>
               <p>Centered auth form with social login buttons, password visibility toggle, and error states.</p>
             </div>
             <div class="pg-template-actions">
@@ -223,7 +228,7 @@
               </div>
             </div>
             <div class="pg-template-info">
-              <h3>Documentation</h3>
+              <h2>Documentation</h2>
               <p>Sidebar navigation, article content, table of contents, code blocks, and search.</p>
             </div>
             <div class="pg-template-actions">

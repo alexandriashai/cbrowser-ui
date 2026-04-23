@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Components — cbrowser-ui</title>
   <meta name="description" content="Every cbrowser-ui component with live examples and copy-paste code. Buttons, forms, modals, tables, navigation, and more.">
+  <meta property="og:title" content="Components — cbrowser-ui">
+  <meta property="og:description" content="Accessible UI components: buttons, cards, alerts, dialogs, forms, and more. WCAG AAA compliant.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://playground.cbrowser.ai/components/">
+  <meta property="og:image" content="https://cbrowser.ai/og/cbrowser-ui.png">
   <link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css">
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,8 +17,8 @@
   <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
   @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; } }
   [id], h1, h2, h3, h4, h5, h6 { scroll-margin-top: 80px; }
-  .cui-nav-backdrop { pointer-events: none; }
-  .cui-nav-backdrop[aria-hidden="false"], .cui-header.cui-header-open .cui-nav-backdrop { pointer-events: auto; }</style>
+  .cui-nav-backdrop { pointer-events: none !important; display: none !important; position: static !important; width: 0 !important; height: 0 !important; z-index: -1 !important; }
+  .cui-header.cui-header-open .cui-nav-backdrop { display: block !important; position: fixed !important; width: 100% !important; height: 100% !important; z-index: 9998 !important; pointer-events: auto !important; }</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,7 +62,7 @@
     <div class="pg-docs">
 
       <!-- Sidebar -->
-      <aside class="pg-docs-sidebar" aria-label="Component navigation">
+      <aside class="pg-docs-sidebar" aria-label="Component navigation" style="z-index: auto;" data-testid="component-sidebar">
         <h4>General</h4>
         <a href="#buttons" class="active" data-testid="sidebar-buttons">Buttons</a>
         <a href="#badges" data-testid="sidebar-badges">Badges</a>
@@ -100,14 +105,14 @@
           <div class="pg-preview">
             <div class="pg-preview-render">
               <div class="pg-variants">
-                <button class="cui-btn">Primary</button>
-                <button class="cui-btn cui-btn-secondary">Secondary</button>
-                <button class="cui-btn cui-btn-destructive">Destructive</button>
-                <button class="cui-btn cui-btn-ghost">Ghost</button>
+                <button class="cui-btn" data-testid="demo-btn-primary">Primary</button>
+                <button class="cui-btn cui-btn-secondary" data-testid="demo-btn-secondary">Secondary</button>
+                <button class="cui-btn cui-btn-destructive" data-testid="demo-btn-destructive">Destructive</button>
+                <button class="cui-btn cui-btn-ghost" data-testid="demo-btn-ghost">Ghost</button>
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-buttons" aria-label="Copy button variants code">Copy</button>
               <pre><code>&lt;button class="cui-btn"&gt;Primary&lt;/button&gt;
 &lt;button class="cui-btn cui-btn-secondary"&gt;Secondary&lt;/button&gt;
 &lt;button class="cui-btn cui-btn-destructive"&gt;Destructive&lt;/button&gt;
@@ -119,12 +124,12 @@
           <div class="pg-preview">
             <div class="pg-preview-render">
               <div class="pg-variants">
-                <a href="#" class="cui-btn">Link as button</a>
-                <a href="#" class="cui-btn cui-btn-secondary">Secondary link</a>
+                <a href="/signup" class="cui-btn" data-testid="demo-link-primary">Link as button</a>
+                <a href="/learn" class="cui-btn cui-btn-secondary" data-testid="demo-link-secondary">Secondary link</a>
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-buttons-links" aria-label="Copy link button code">Copy</button>
               <pre><code>&lt;a href="/signup" class="cui-btn"&gt;Link as button&lt;/a&gt;
 &lt;a href="/learn" class="cui-btn cui-btn-secondary"&gt;Secondary link&lt;/a&gt;</code></pre>
             </div>
@@ -158,7 +163,7 @@
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-badges" aria-label="Copy badge code">Copy</button>
               <pre><code>&lt;span class="cui-badge"&gt;Default&lt;/span&gt;
 &lt;span class="cui-badge cui-badge-primary"&gt;Primary&lt;/span&gt;
 &lt;span class="cui-badge cui-badge-success"&gt;Success&lt;/span&gt;
@@ -182,7 +187,7 @@
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-alerts" aria-label="Copy alert code">Copy</button>
               <pre><code>&lt;div class="cui-alert cui-alert-info" role="alert"&gt;
   &lt;strong&gt;Info:&lt;/strong&gt; Your session will expire in 5 minutes.
 &lt;/div&gt;
@@ -212,26 +217,26 @@
               <div class="cui-stack">
                 <div>
                   <label for="ex-name">Full name</label>
-                  <input type="text" id="ex-name" placeholder="Jane Smith">
+                  <input type="text" id="ex-name" placeholder="Jane Smith" data-testid="demo-input-name">
                   <p class="cui-hint">As it appears on your ID.</p>
                 </div>
                 <div>
                   <label for="ex-email">Email address</label>
-                  <input type="email" id="ex-email" placeholder="jane@example.com">
+                  <input type="email" id="ex-email" placeholder="jane@example.com" data-testid="demo-input-email">
                 </div>
                 <div class="cui-error">
                   <label for="ex-pw">Password</label>
-                  <input type="password" id="ex-pw" value="short">
+                  <input type="password" id="ex-pw" value="short" data-testid="demo-input-password">
                   <p class="cui-error-msg">Password must be at least 8 characters.</p>
                 </div>
                 <div>
                   <label for="ex-bio">Bio</label>
-                  <textarea id="ex-bio" placeholder="Tell us about yourself..." rows="3"></textarea>
+                  <textarea id="ex-bio" placeholder="Tell us about yourself..." rows="3" data-testid="demo-input-bio"></textarea>
                 </div>
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-inputs" aria-label="Copy input code">Copy</button>
               <pre><code>&lt;div&gt;
   &lt;label for="name"&gt;Full name&lt;/label&gt;
   &lt;input type="text" id="name" placeholder="Jane Smith"&gt;
@@ -256,16 +261,16 @@
           <div class="pg-preview">
             <div class="pg-preview-render" style="max-width: 24rem;">
               <div class="cui-stack cui-gap-sm">
-                <label><input type="checkbox" checked> Receive email updates</label>
-                <label><input type="checkbox"> Accept terms and conditions</label>
+                <label><input type="checkbox" checked aria-label="Receive email updates" data-testid="demo-check-emails"> Receive email updates</label>
+                <label><input type="checkbox" aria-label="Accept terms and conditions" data-testid="demo-check-terms"> Accept terms and conditions</label>
                 <hr class="cui-separator">
-                <label><input type="radio" name="plan" checked> Free plan</label>
-                <label><input type="radio" name="plan"> Pro plan — $49/mo</label>
-                <label><input type="radio" name="plan"> Enterprise — Contact us</label>
+                <label><input type="radio" name="plan" checked aria-label="Free plan" data-testid="demo-radio-free"> Free plan</label>
+                <label><input type="radio" name="plan" aria-label="Pro plan" data-testid="demo-radio-pro"> Pro plan — $49/mo</label>
+                <label><input type="radio" name="plan" aria-label="Enterprise plan" data-testid="demo-radio-enterprise"> Enterprise — Contact us</label>
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-checkbox" aria-label="Copy checkbox and radio code">Copy</button>
               <pre><code>&lt;label&gt;&lt;input type="checkbox" checked&gt; Receive email updates&lt;/label&gt;
 &lt;label&gt;&lt;input type="checkbox"&gt; Accept terms&lt;/label&gt;
 
@@ -298,7 +303,7 @@
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-cards" aria-label="Copy card code">Copy</button>
               <pre><code>&lt;div class="cui-card"&gt;Default card&lt;/div&gt;
 &lt;div class="cui-card cui-card-elevated"&gt;Elevated card&lt;/div&gt;
 &lt;div class="cui-card cui-card-highlight"&gt;Highlighted card&lt;/div&gt;</code></pre>
@@ -326,7 +331,7 @@
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-table" aria-label="Copy table code">Copy</button>
               <pre><code>&lt;div class="cui-table-wrapper"&gt;
   &lt;table class="cui-table"&gt;
     &lt;thead&gt;
@@ -353,20 +358,20 @@
           <div class="pg-preview">
             <div class="pg-preview-render" style="max-width: 32rem;">
               <details class="cui-accordion" open>
-                <summary>How do I install cbrowser-ui?</summary>
+                <summary data-testid="demo-accordion-install">How do I install cbrowser-ui?</summary>
                 <p>Add one link tag: <code>&lt;link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css"&gt;</code> — or install via npm with <code>npm install cbrowser-ui</code>.</p>
               </details>
               <details class="cui-accordion">
-                <summary>Does it work with React / Vue / Svelte?</summary>
+                <summary data-testid="demo-accordion-frameworks">Does it work with React / Vue / Svelte?</summary>
                 <p>Yes. It's framework-agnostic CSS. Import the stylesheet and use the class names. The JS runtime is optional — only needed for focus traps and keyboard navigation.</p>
               </details>
               <details class="cui-accordion">
-                <summary>Can I customize the colors?</summary>
+                <summary data-testid="demo-accordion-customize">Can I customize the colors?</summary>
                 <p>Override any of the 20 CSS custom properties. Every <code>--cui-*</code> variable changes the entire theme. The playground's theme editor (coming soon) will enforce contrast accessibility as you pick colors.</p>
               </details>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-accordion" aria-label="Copy accordion code">Copy</button>
               <pre><code>&lt;details class="cui-accordion" open&gt;
   &lt;summary&gt;How do I install cbrowser-ui?&lt;/summary&gt;
   &lt;p&gt;Add one link tag or install via npm.&lt;/p&gt;
@@ -402,7 +407,7 @@
               </dialog>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-dialog" aria-label="Copy dialog code">Copy</button>
               <pre><code>&lt;button class="cui-btn" onclick="document.getElementById('my-dialog').showModal()"&gt;
   Open Dialog
 &lt;/button&gt;
@@ -448,7 +453,7 @@
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-progress" aria-label="Copy progress bar code">Copy</button>
               <pre><code>&lt;div class="cui-progress" role="progressbar"
      aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"
      aria-label="Upload progress: 72%"&gt;
@@ -469,25 +474,25 @@
                 <div>
                   <p class="cui-text-sm cui-font-bold" style="margin-bottom: 0.5rem;">Vertical</p>
                   <nav aria-label="Example vertical nav" class="cui-nav" style="flex-direction: column; align-items: stretch; background: var(--cui-surface); border-radius: var(--cui-radius); padding: 0.5rem;">
-                    <a href="#" aria-current="page">Dashboard</a>
-                    <a href="#">Analytics</a>
-                    <a href="#">Settings</a>
-                    <a href="#">Sign Out</a>
+                    <a href="/dashboard" aria-current="page" data-testid="demo-vnav-dashboard">Dashboard</a>
+                    <a href="/analytics" data-testid="demo-vnav-analytics">Analytics</a>
+                    <a href="/settings" data-testid="demo-vnav-settings">Settings</a>
+                    <a href="/sign-out" data-testid="demo-vnav-signout">Sign Out</a>
                   </nav>
                 </div>
                 <div>
                   <p class="cui-text-sm cui-font-bold" style="margin-bottom: 0.5rem;">Horizontal</p>
                   <nav aria-label="Example horizontal nav" class="cui-nav" style="background: var(--cui-surface); border-radius: var(--cui-radius); padding: 0.25rem;">
-                    <a href="#" aria-current="page">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Contact</a>
+                    <a href="/" aria-current="page" data-testid="demo-hnav-home">Home</a>
+                    <a href="/about" data-testid="demo-hnav-about">About</a>
+                    <a href="/blog" data-testid="demo-hnav-blog">Blog</a>
+                    <a href="/contact" data-testid="demo-hnav-contact">Contact</a>
                   </nav>
                 </div>
               </div>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-nav" aria-label="Copy navigation code">Copy</button>
               <pre><code>&lt;nav aria-label="Main" class="cui-nav"&gt;
   &lt;a href="/" aria-current="page"&gt;Dashboard&lt;/a&gt;
   &lt;a href="/analytics"&gt;Analytics&lt;/a&gt;
@@ -506,15 +511,15 @@
             <div class="pg-preview-render">
               <nav aria-label="Breadcrumb">
                 <ol class="cui-breadcrumb">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Electronics</a></li>
-                  <li><span aria-current="page">Headphones</span></li>
+                  <li><a href="/" data-testid="demo-crumb-home">Home</a></li>
+                  <li><a href="/products" data-testid="demo-crumb-products">Products</a></li>
+                  <li><a href="/products/electronics" data-testid="demo-crumb-electronics">Electronics</a></li>
+                  <li><span aria-current="page" data-testid="demo-crumb-current">Headphones</span></li>
                 </ol>
               </nav>
             </div>
             <div class="pg-preview-code">
-              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)">Copy</button>
+              <button class="pg-copy" onclick="navigator.clipboard.writeText(this.closest('.pg-preview-code').querySelector('code').textContent)" data-testid="copy-breadcrumb" aria-label="Copy breadcrumb code">Copy</button>
               <pre><code>&lt;nav aria-label="Breadcrumb"&gt;
   &lt;ol class="cui-breadcrumb"&gt;
     &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;

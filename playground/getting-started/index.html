@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Getting Started — cbrowser-ui</title>
   <meta name="description" content="Install cbrowser-ui in 30 seconds. CDN, npm, or framework patch.">
+  <meta property="og:title" content="Get Started — cbrowser-ui">
+  <meta property="og:description" content="Install cbrowser-ui in 30 seconds. One CSS file fixes your framework's accessibility.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://playground.cbrowser.ai/getting-started/">
+  <meta property="og:image" content="https://cbrowser.ai/og/cbrowser-ui.png">
   <link rel="stylesheet" href="https://cdn.cbrowser.ai/ui.css">
   <script type="module" src="https://cdn.cbrowser.ai/ui.mjs"></script>
   <link rel="stylesheet" href="/cdn/playground.css">
@@ -12,8 +17,8 @@
   <style>:root { --cui-font: 'Inter', system-ui, sans-serif; --cui-primary: #4f46e5; --cui-primary-fg: #fff; --cui-primary-hover: #4338ca; --cui-gradient-start: #4f46e5; --cui-gradient-end: #7c3aed; }
   @media (prefers-color-scheme: dark) { :root { --cui-primary: #818cf8; --cui-primary-fg: #0f172a; --cui-primary-hover: #a5b4fc; } }
   [id], h1, h2, h3, h4, h5, h6 { scroll-margin-top: 80px; }
-  .cui-nav-backdrop { pointer-events: none; }
-  .cui-nav-backdrop[aria-hidden="false"], .cui-header.cui-header-open .cui-nav-backdrop { pointer-events: auto; }</style>
+  .cui-nav-backdrop { pointer-events: none !important; display: none !important; position: static !important; width: 0 !important; height: 0 !important; z-index: -1 !important; }
+  .cui-header.cui-header-open .cui-nav-backdrop { display: block !important; position: fixed !important; width: 100% !important; height: 100% !important; z-index: 9998 !important; pointer-events: auto !important; }</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
