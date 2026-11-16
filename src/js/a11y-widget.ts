@@ -113,16 +113,16 @@
   const HOST_CSS = `
     .cba11y-high-contrast { background: #000 !important; color: #fff !important; }
     .cba11y-high-contrast * { border-color: #fff !important; }
-    .cba11y-inverted { filter: invert(1) hue-rotate(180deg); }
-    .cba11y-inverted img, .cba11y-inverted video, .cba11y-inverted svg, .cba11y-inverted [data-cba11y-widget] { filter: invert(1) hue-rotate(180deg); }
+    body.cba11y-inverted { filter: invert(1) hue-rotate(180deg); }
+    body.cba11y-inverted img, body.cba11y-inverted video, body.cba11y-inverted svg { filter: invert(1) hue-rotate(180deg); }
     .cba11y-dyslexia, .cba11y-dyslexia * { font-family: 'OpenDyslexic', sans-serif !important; }
     .cba11y-no-motion, .cba11y-no-motion * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
     .cba11y-big-cursor, .cba11y-big-cursor * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M5 2l18 14-8 2 4 10-4 2-4-10-6 6z' fill='%23000' stroke='%23fff' stroke-width='1'/%3E%3C/svg%3E") 5 2, auto !important; }
     .cba11y-spacing-1 { letter-spacing: 0.05em !important; word-spacing: 0.1em !important; line-height: 1.8 !important; }
     .cba11y-spacing-2 { letter-spacing: 0.12em !important; word-spacing: 0.2em !important; line-height: 2.2 !important; }
     .cba11y-focus *:focus, .cba11y-focus *:focus-visible { outline: 3px solid #3b82f6 !important; outline-offset: 2px !important; box-shadow: 0 0 0 6px rgba(59,130,246,0.25) !important; }
-    .cba11y-low-sat { filter: saturate(0.5); }
-    .cba11y-grayscale { filter: grayscale(1); }
+    body.cba11y-low-sat { filter: saturate(0.5); }
+    body.cba11y-grayscale { filter: grayscale(1); }
     .cba11y-links a { text-decoration: underline !important; text-decoration-thickness: 2px !important; text-underline-offset: 3px !important; color: #2563eb !important; }
     .cba11y-links a:visited { color: #7c3aed !important; }
     .cba11y-guide { position: fixed; left: 0; right: 0; height: 4px; background: rgba(59,130,246,0.35); pointer-events: none; z-index: 99999; }
@@ -209,7 +209,8 @@
     root.style.fontSize = ['', '20px', '24px'][s.fontSize] || '';
 
     root.classList.toggle('cba11y-high-contrast', s.contrast === 1);
-    root.classList.toggle('cba11y-inverted', s.contrast === 2);
+    // Invert goes on body (not html) so the widget appended to html escapes the filter
+    document.body.classList.toggle('cba11y-inverted', s.contrast === 2);
 
     root.classList.toggle('cba11y-dyslexia', s.dyslexiaFont);
     if (s.dyslexiaFont && !document.getElementById('cba11y-dyslexic-font')) {
@@ -225,8 +226,9 @@
     root.classList.toggle('cba11y-spacing-1', s.textSpacing === 1);
     root.classList.toggle('cba11y-spacing-2', s.textSpacing === 2);
     root.classList.toggle('cba11y-focus', s.focusHighlight);
-    root.classList.toggle('cba11y-low-sat', s.saturation === 1);
-    root.classList.toggle('cba11y-grayscale', s.saturation === 2);
+    // Saturation/grayscale go on body to avoid filtering the widget
+    document.body.classList.toggle('cba11y-low-sat', s.saturation === 1);
+    document.body.classList.toggle('cba11y-grayscale', s.saturation === 2);
     root.classList.toggle('cba11y-links', s.linkHighlight);
 
     // Reading guide
@@ -261,7 +263,8 @@
     // Create shadow host
     const host = document.createElement('div');
     host.setAttribute('data-cba11y-widget', '');
-    document.body.appendChild(host);
+    // Append to <html> (not <body>) so filters on body don't affect the widget
+    document.documentElement.appendChild(host);
     const shadow = host.attachShadow({ mode: 'closed' });
 
     // Inject shadow CSS
@@ -274,7 +277,8 @@
     let isOpen = false;
 
     // Accessibility icon SVG
-    const a11yIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="1.5"/><path d="M12 7v5"/><path d="m8 11 4 1 4-1"/><path d="m8 18 2.5-5"/><path d="M14.5 18 12 13"/></svg>`;
+    // International Symbol of Access (wheelchair) — clean SVG
+    const a11yIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="4" r="1.5" fill="currentColor" stroke="none"/><path d="M10 7v5h6l2 5"/><circle cx="10" cy="18" r="4" fill="none"/><path d="M14 18h5"/></svg>`;
     const closeIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
 
     // FAB button
