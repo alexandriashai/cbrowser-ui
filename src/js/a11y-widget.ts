@@ -2,11 +2,16 @@
  * CBrowser Accessibility Widget — Embeddable FAB
  *
  * Drop this script on any page to add an accessibility controls panel.
- * Requires a Pro account + approved domain.
+ * Requires a Pro or Enterprise account with the site registered to it.
+ *
+ * No API key goes in the page. The widget asks cbrowser.ai whether the site it
+ * is running on is registered; the browser's Origin header says which site that
+ * is, and page script cannot change it. (Until 2026-11-16 the snippet carried a
+ * full account key in data-key, which published a working credential on every
+ * site that embedded it. A data-key attribute is now ignored.)
  *
  * Usage:
  *   <script src="https://cdn.cbrowser.ai/a11y-widget.js"
- *     data-key="cbk_YOUR_API_KEY"
  *     data-position="bottom-left"
  *     data-offset="20"
  *     data-size="48"
@@ -15,7 +20,6 @@
  *   ></script>
  *
  * Config attributes:
- *   data-key       — CBrowser API key (cbk_...) — required for domain validation
  *   data-position  — bottom-left (default), bottom-right, top-left, top-right
  *   data-offset    — Distance from edges in px (default: 20)
  *   data-size      — FAB button size in px (default: 48)
@@ -34,7 +38,6 @@
   // ── Config from script tag ──
   const script = document.currentScript as HTMLScriptElement;
   const cfg = {
-    key: script?.getAttribute('data-key') || '',
     position: script?.getAttribute('data-position') || 'bottom-left',
     offset: parseInt(script?.getAttribute('data-offset') || '20', 10),
     size: parseInt(script?.getAttribute('data-size') || '48', 10),
@@ -44,22 +47,34 @@
     features: (script?.getAttribute('data-features') || 'all').split(',').map(s => s.trim()),
   };
 
-  // ── Domain validation ──
-  const domain = location.hostname;
-  if (cfg.key) {
+  // ── Site validation (by origin, no key) ──
+  if (script?.hasAttribute('data-key')) {
+    console.warn('[cbrowser-a11y] data-key is no longer used and publishes your API key to every visitor. Remove the attribute and revoke that key at cbrowser.ai/account/settings.');
+  }
+  const host = location.hostname;
+  const isLocal = location.protocol === 'file:' || host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host.endsWith('.localhost');
+  if (isLocal) {
+    // Local development: nothing to check against. Deferred, because init()
+    // reads constants declared further down this function; called now, it
+    // throws "Cannot access before initialization" (the old no-key path did).
+    queueMicrotask(init);
+  } else {
+    // The body carries nothing the server trusts: it reads the Origin header,
+    // which the browser sets to this page's site.
     fetch(`https://cbrowser.ai/cms/api/accounts/validate-widget`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key: cfg.key, domain }),
+      body: '{}',
     }).then(r => {
       if (!r.ok) {
-        console.warn('[cbrowser-a11y] Domain not authorized or invalid key. Widget disabled.');
+        r.json().then(
+          (b: { error?: string }) => console.warn(`[cbrowser-a11y] Widget disabled: ${b?.error || `HTTP ${r.status}`}`),
+          () => console.warn(`[cbrowser-a11y] Widget disabled: HTTP ${r.status}`),
+        );
         return;
       }
       init();
-    }).catch(() => init()); // Allow on network failure (graceful degradation)
-  } else {
-    init(); // No key = allow (for testing / localhost)
+    }).catch(() => init()); // cbrowser.ai unreachable: keep the controls for the visitor
   }
 
   // ── Settings ──
