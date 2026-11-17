@@ -68,6 +68,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No NODE_AUTH_TOKEN: a set token makes npm skip the OIDC exchange.
+          # npm logs why an OIDC exchange was refused only at verbose level.
+          NPM_CONFIG_LOGLEVEL: verbose
 
       # After the release, not before: playground/cdn is tracked, so copying the
       # build into it first leaves a dirty tree and release-it refuses to run.
