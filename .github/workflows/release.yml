@@ -27,22 +27,29 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      # npm publishes through trusted publishing (OIDC, id-token: write above), not a
+      # stored token: NPM_TOKEN stopped authenticating and failed every release since
+      # 2026-04 (npm stayed at 0.1.0). Trusted publishing needs Node >= 22.14.0 and
+      # npm >= 11.5.1. There is deliberately no registry-url: setup-node would write
+      # an .npmrc that reads NODE_AUTH_TOKEN, and npm tries a token before OIDC.
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
+
+      - name: npm for trusted publishing
+        run: |
+          npm install -g npm@^11.5.1
+          node -e 'const [a, b] = process.versions.node.split(".").map(Number); if (a < 22 || (a === 22 && b < 14)) { console.error(`node ${process.versions.node} < 22.14.0`); process.exit(1); }'
+          node -e 'const v = require("child_process").execSync("npm --version").toString().trim(); const [a, b, c] = v.split(".").map(Number); if (a < 11 || (a === 11 && (b < 5 || (b === 5 && c < 1)))) { console.error(`npm ${v} < 11.5.1`); process.exit(1); } console.log(`node ${process.versions.node}, npm ${v}`);'
 
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
-      - run: bun install
+      - run: bun install --frozen-lockfile
 
       - name: Build
         run: bun run build
-
-      - name: Copy CDN files to playground
-        run: cp dist/*.css dist/*.mjs dist/*.js playground/cdn/ 2>/dev/null || true
 
       - name: Configure Git
         run: |
@@ -60,11 +67,21 @@ jobs:
         run: npx release-it --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # No NODE_AUTH_TOKEN: a set token makes npm skip the OIDC exchange.
 
+      # After the release, not before: playground/cdn is tracked, so copying the
+      # build into it first leaves a dirty tree and release-it refuses to run.
+      - name: Copy CDN files to playground
+        if: github.event.inputs.dry_run != 'true'
+        run: cp dist/*.css dist/*.mjs dist/*.js playground/cdn/ 2>/dev/null || true
+
+      # The repo has no CLOUDFLARE_API_TOKEN secret; the playground is deployed by
+      # hand with wrangler until one is added, so a missing token skips this step.
       - name: Deploy to Cloudflare Pages
         if: github.event.inputs.dry_run != 'true'
-        run: npx wrangler pages deploy playground --project-name=cbrowser-ui-playground --commit-dirty=true
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "No CLOUDFLARE_API_TOKEN secret; skipping the playground deploy."; exit 0; fi
+          npx wrangler pages deploy playground --project-name=cbrowser-ui-playground --commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
